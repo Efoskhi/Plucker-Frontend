@@ -12,6 +12,8 @@ import Leader from "../assets/Leader.png";
 
 import Avatar from "../assets/Avatar.png";
 
+import Dollar from "../assets/Dollars.png";
+
 import Bell from "../assets/Bell.png";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -45,6 +47,11 @@ const Navbar = () => {
           icon={<img src={Cup} className="h-8" />}
           label="Tournaments"
           to="/Tournaments"
+        />
+        <NavItem
+          icon={<img src={Dollar} className="h-8" />}
+          label="Pricing"
+          to="/Pricing"
         />
       </div>
 

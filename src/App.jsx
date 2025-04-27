@@ -9,6 +9,9 @@ import GameDetails from "./Pages/GameDetails";
 import LeaderBoard from "./Pages/LeaderBoard";
 import Tournaments from "./Pages/Tournaments";
 import TournamentHub from "./Pages/TournamentHub";
+import SuccessfulSubmission from "./Pages/Tournament/SuccessfulSubmission";
+import FailedSubmission from "./Pages/Tournament/FailedSubmission";
+import Pricing from "./Pages/Pricing/Pricing";
 
 function App() {
   return (
@@ -27,7 +30,15 @@ function App() {
 
           <Route path="/Tournaments" element={<Tournaments />} />
 
+          <Route path="/Pricing" element={<Pricing />} />
+
           <Route path="/TournamentHub" element={<TournamentHub />} />
+
+          <Route
+            path="/SuccessfulSubmission"
+            element={<SuccessfulSubmission />}
+          />
+          <Route path="/FailedSubmission" element={<FailedSubmission />} />
         </Routes>
       </Router>
     </>
