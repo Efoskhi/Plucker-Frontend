@@ -12,6 +12,7 @@ import TournamentHub from "./Pages/TournamentHub";
 import SuccessfulSubmission from "./Pages/Tournament/SuccessfulSubmission";
 import FailedSubmission from "./Pages/Tournament/FailedSubmission";
 import Pricing from "./Pages/Pricing/Pricing";
+import Profile from "./Pages/Profile";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
           <Route path="/Tournaments" element={<Tournaments />} />
 
           <Route path="/Pricing" element={<Pricing />} />
+
+          <Route path="/Profile" element={<Profile />} />
 
           <Route path="/TournamentHub" element={<TournamentHub />} />
 
