@@ -1,8 +1,8 @@
 import React from "react";
-import bgStars from "../assets/Background.png"; // Adjust the path as needed
-import logo from "../assets/logo.png"; // Replace with your actual logo
+import bgStars from "../../assets/Background.png"; // Adjust the path as needed
+import logo from "../../assets/logo.png"; // Replace with your actual logo
 
-import Party from "../assets/Party.png"; // Replace with your actual logo
+import Party from "../../assets/Party.png"; // Replace with your actual logo
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 const Welcome = () => {

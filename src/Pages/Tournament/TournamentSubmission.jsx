@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { FaTrophy, FaMoneyBillWave, FaClock } from "react-icons/fa";
-import Dog1 from "../assets/Dog1.png";
+import Dog1 from "../../assets/Dog1.png";
 
-import Paint1 from "../assets/Paint1.png";
+import Paint1 from "../../assets/Paint1.png";
 
-import Paint2 from "../assets/Paint2.png";
-import Dog2 from "../assets/Dog2.png";
+import Paint2 from "../../assets/Paint2.png";
+import Dog2 from "../../assets/Dog2.png";
 
-export default function TournamentHub() {
+export default function TournamentSubmission() {
   const [agree, setAgree] = useState(false);
 
   return (

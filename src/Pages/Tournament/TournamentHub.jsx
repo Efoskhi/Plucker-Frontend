@@ -3,22 +3,22 @@ import React from "react";
 import { useState } from "react";
 import { FaTrophy } from "react-icons/fa";
 import { BsChevronDown } from "react-icons/bs";
-import bgStars from "../assets/Background.png"; // Adjust the path as needed
+import bgStars from "../../assets/Background.png"; // Adjust the path as needed
 
-import Faces from "../assets/Faces.png"; // Replace with your actual logo
+import Faces from "../../assets/Faces.png"; // Replace with your actual logo
 
-import Strike from "../assets/Strike.png"; // Replace with your actual logo
+import Strike from "../../assets/Strike.png"; // Replace with your actual logo
 
-import Banner from "../assets/Banner.png"; // Replace with your actual logo
+import Banner from "../../assets/Banner.png"; // Replace with your actual logo
 
-import Level from "../assets/Level.png"; // Replace with your actual logo
+import Level from "../../assets/Level.png"; // Replace with your actual logo
 
-import Smile from "../assets/Smile.png";
+import Smile from "../../assets/Smile.png";
 
-import Challenge from "../components/Leaderboard/Challenge";
-import Card from "../components/Tournament/Card";
-import AllTournaments from "../components/Tournament/AllTournaments";
-import PastTournaments from "../components/Tournament/PastTournaments";
+import Challenge from "../../components/Leaderboard/Challenge";
+import Card from "../../components/Tournament/Card";
+import AllTournaments from "../../components/Tournament/AllTournaments";
+import PastTournaments from "../../components/Tournament/PastTournaments";
 
 const tabs = [
   { id: "all", label: "All Tournaments", icon: "🌍" },
@@ -29,7 +29,7 @@ const tabComponents = {
   past: <PastTournaments />,
 };
 
-const Tournaments = () => {
+const TournamentHub = () => {
   const [activeTab, setActiveTab] = useState("all");
   return (
     <div
@@ -117,4 +117,4 @@ const Tournaments = () => {
   );
 };
 
-export default Tournaments;
+export default TournamentHub;

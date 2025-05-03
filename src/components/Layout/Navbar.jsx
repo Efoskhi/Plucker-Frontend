@@ -3,23 +3,26 @@ import { useState } from "react";
 import { FaHome, FaTrophy, FaChartBar } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 
-import Logo from "../assets/Logo.png";
+import Logo from "../../assets/Logo.png";
 
-import Home from "../assets/Home.png";
-import Cup from "../assets/Cup.png";
+import Home from "../../assets/Home.png";
+import Cup from "../../assets/Cup.png";
 
-import Leader from "../assets/Leader.png";
+import Leader from "../../assets/Leader.png";
 
-import Avatar from "../assets/Avatar.png";
+import Avatar from "../../assets/Avatar.png";
 
-import Dollar from "../assets/Dollars.png";
+import Dollar from "../../assets/Dollars.png";
 
-import Bell from "../assets/Bell.png";
+import Bell from "../../assets/Bell.png";
 import { Link, useNavigate } from "react-router-dom";
+import NotificationModal from "../Notification";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <nav className="bg-black/20 fixed top-0 w-full  text-white px-6 py-4 flex justify-between items-center  z-50">
@@ -45,8 +48,8 @@ const Navbar = () => {
         />
         <NavItem
           icon={<img src={Cup} className="h-8" />}
-          label="Tournaments"
-          to="/Tournaments"
+          label="Tournament"
+          to="/TournamentHub"
         />
         <NavItem
           icon={<img src={Dollar} className="h-8" />}
@@ -62,7 +65,17 @@ const Navbar = () => {
           <p className="font-semibold">Osato Elijah</p>
           <p className="text-xs text-gray-400">LEVEL 1</p>
         </div>
-        <img src={Bell} alt="Icon" className="h-5 w-5 cursor-pointer" />
+        <img
+          src={Bell}
+          alt="Icon"
+          className="h-5 w-5 cursor-pointer"
+          onClick={() => setIsModalOpen(true)}
+        />
+
+        <NotificationModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
         {/* Hamburger menu */}
         <button
           className="md:hidden ml-3"
