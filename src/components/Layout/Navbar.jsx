@@ -1,6 +1,6 @@
 // components/Navbar.jsx
 import { useState } from "react";
-import { FaHome, FaTrophy, FaChartBar } from "react-icons/fa";
+import { FaHome, FaTrophy, FaChartBar, FaMoneyBill } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 
 import Logo from "../../assets/Logo.png";
@@ -25,7 +25,7 @@ const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <nav className="bg-black/20 fixed top-0 w-full  text-white px-6 py-4 flex justify-between items-center  z-50">
+    <nav className="bg-black/20 fixed top-0 w-full  text-white px-6 lg:px-40 py-4 flex justify-between items-center  z-50">
       {/* Logo */}
       <div className="flex items-center space-x-2">
         <img src={Logo} alt="Logo" className="h-8" />
@@ -39,7 +39,7 @@ const Navbar = () => {
         <NavItem
           icon={<img src={Home} className="h-8" />}
           label="Home"
-          to="/"
+          to="/Explore"
         />
         <NavItem
           icon={<img src={Leader} className="h-8" />}
@@ -94,7 +94,13 @@ const Navbar = () => {
             label="Leaderboard"
             to="/LeaderBoard"
           />
-          <NavItem icon={<FaTrophy />} label="Tournaments" to="/" />
+          <NavItem
+            icon={<FaTrophy />}
+            label="Tournaments"
+            to="/TournamentHub"
+          />
+
+          <NavItem icon={<FaMoneyBill />} label="Pricing" to="/Pricing" />
         </div>
       )}
     </nav>

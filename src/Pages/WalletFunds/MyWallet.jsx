@@ -36,10 +36,10 @@ const MyWallet = () => {
       />
 
       <img src={Strike} className="absolute left-0 -z-10 bottom-0 " />
-      <div className=" space-y-6  h-full w-full z-20 py-20">
+      <div className=" space-y-6  h-full w-full z-20 py-20 lg:px-0 px-4">
         {/* Header */}
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between mx-auto max-w-4xl pt-1 items-start md:items-center gap-6">
+        <div className="flex flex-col md:flex-row justify-between mx-auto lg:max-w-4xl  pt-1 items-start md:items-center gap-6">
           {/* Left: Wallet Title */}
           <div>
             <h2 className="text-2xl font-semibold flex items-center gap-2">

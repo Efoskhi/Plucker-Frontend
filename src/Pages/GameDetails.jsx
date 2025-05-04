@@ -1,5 +1,4 @@
 import bgStars from "../assets/Background.png"; // Adjust the path as needed
-import logo from "../assets/logo.png"; // Replace with your actual logo
 
 import Pad2 from "../assets/Pad2.png"; // Replace with your actual logo
 

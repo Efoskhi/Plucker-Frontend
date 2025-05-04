@@ -8,6 +8,7 @@ import Google from "../../assets/Google.png";
 
 import Gamepad from "../../assets/Gamepad.png";
 import { CiMail, CiUser } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -54,11 +55,11 @@ const Signup = () => {
 
             <form className="space-y-4">
               <div>
-                <label className="block text-xs mb-1">Username</label>
+                <label className="block text-xs mb-1">Email</label>
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="e.g NaijaSharpGuy"
+                    placeholder="naijasharpguy@gmail.com"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
                   />
                   <span className="absolute right-3 top-2.5 text-gray-400">
@@ -102,17 +103,18 @@ const Signup = () => {
                   </button>
                 </div>
               </div>
-
-              <button className="w-full bg-[#00DAE4] hover:bg-cyan-700 items-center justify-center text-black py-2 rounded-md font-semibold  transition inline-flex gap-2 items-center">
-                Create My Plicked Account <FaLongArrowAltRight />
-              </button>
+              <Link to="/VerifyEmail">
+                <button className="w-full mt-6 bg-[#00DAE4] hover:bg-cyan-700 items-center justify-center text-black py-2 rounded-md font-semibold  transition inline-flex gap-2 ">
+                  Create My Plicked Account <FaLongArrowAltRight />
+                </button>
+              </Link>
             </form>
 
             <div className="text-center text-sm mt-4 text-gray-400">
               Already have an account?{" "}
-              <a href="#" className="text-[#00DAE4] hover:underline ">
+              <Link to="/" className="text-[#00DAE4] hover:underline ">
                 Sign in
-              </a>
+              </Link>
             </div>
           </div>
         </div>

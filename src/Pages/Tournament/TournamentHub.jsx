@@ -53,7 +53,7 @@ const TournamentHub = () => {
       />
 
       <img src={Strike} className="absolute left-0 -z-10 bottom-0 " />
-      <div className=" space-y-6  h-full w-full z-20 py-20">
+      <div className=" space-y-6  h-full w-full z-20 py-20 lg:max-w-6xl mx-auto">
         <div className="w-full  py-6 px-6 text-white">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left Side */}
@@ -75,23 +75,23 @@ const TournamentHub = () => {
         </div>
       </div>
 
-      <div className="grid gap-12 grid-cols-3 px-12 items-center justify-center mx-auto">
-        <div className=" my-12 mt-12">
+      <div className="grid gap-4 lg:grid-cols-3 grid-cols-1 px-4 lg:max-w-6xl  items-center justify-center mx-auto">
+        <div className=" lg:my-12 lg:mt-12">
           {/* Card */}
           <Card />
         </div>
 
-        <div className=" mb-12">
+        <div className=" lg:mb-12">
           {" "}
           <Card />
         </div>
-        <div className=" my-12 mt-12">
+        <div className=" lg:my-12 lg:mt-12">
           <Card />
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-6 items-center text-sm font-medium px-4 py-2  overflow-x-auto whitespace-nowrap">
+      <div className="flex gap-6 items-center text-sm font-medium px-4 pt-8 lg:max-w-6xl mx-auto  overflow-x-auto whitespace-nowrap">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -112,7 +112,9 @@ const TournamentHub = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="p-12">{tabComponents[activeTab]}</div>
+      <div className="py-6 lg:max-w-6xl mx-auto ">
+        {tabComponents[activeTab]}
+      </div>
     </div>
   );
 };

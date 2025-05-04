@@ -39,7 +39,7 @@ const Pricing = () => {
       <img src={Wave1} className="absolute right-0 -z-10 top-[40%] " />
 
       <img src={Wave2} className="absolute left-0 -z-10 bottom-[40%] " />
-      <div className=" space-y-6  h-full w-full z-20 py-20">
+      <div className=" space-y-6  h-full w-full z-20 py-20 lg:max-w-6xl mx-auto">
         <div className="w-full  py-6 px-6 text-white">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left Side */}

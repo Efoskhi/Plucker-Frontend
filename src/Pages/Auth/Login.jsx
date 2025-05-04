@@ -6,6 +6,7 @@ import Logo from "../../assets/Logo.png";
 
 import Google from "../../assets/Google.png";
 import { CiMail } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -87,16 +88,18 @@ const Login = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-[#00DAE4] hover:bg-cyan-700 text-black py-2 rounded-md font-semibold  transition">
-                Log in
-              </button>
+              <Link to="/Explore">
+                <button className="w-full mt-6 bg-[#00DAE4] hover:bg-cyan-700 text-black py-2 rounded-md font-semibold  transition">
+                  Log in
+                </button>
+              </Link>
             </form>
 
             <div className="text-center text-sm mt-4 text-gray-400">
               Don’t have an account?{" "}
-              <a href="#" className="text-[#00DAE4] hover:underline">
+              <Link to="/Signup" className="text-[#00DAE4] hover:underline">
                 Sign up
-              </a>
+              </Link>
             </div>
           </div>
         </div>

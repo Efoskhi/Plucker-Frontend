@@ -20,53 +20,57 @@ import GameRules from "./Pages/Legal/GameRules";
 import Support from "./Pages/Legal/Support";
 import TournamentSubmission from "./Pages/Tournament/TournamentSubmission";
 import MyWallet from "./Pages/WalletFunds/MyWallet";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   return (
     <>
       <Router>
-        <div className="z-0">
-          <Navbar />
-        </div>
-
         <Routes>
-          <Route path="/" element={<ExploreGames />} />
+          <Route path="/" element={<Login />} />
 
-          <Route path="/GameDetails" element={<GameDetails />} />
+          <Route path="/Signup" element={<Signup />} />
 
-          <Route path="/LeaderBoard" element={<LeaderBoard />} />
+          <Route path="/VerifyEmail" element={<VerifyEmail />} />
+          <Route path="/Welcome" element={<Welcome />} />
 
-          <Route path="/TournamentHub" element={<TournamentHub />} />
+          <Route element={<Layout />}>
+            <Route path="/Explore" element={<ExploreGames />} />
 
-          <Route path="/Pricing" element={<Pricing />} />
+            <Route path="/GameDetails" element={<GameDetails />} />
 
-          <Route path="/MyWallet" element={<MyWallet />} />
+            <Route path="/LeaderBoard" element={<LeaderBoard />} />
 
-          <Route path="/Profile" element={<Profile />} />
+            <Route path="/TournamentHub" element={<TournamentHub />} />
 
-          <Route
-            path="/TournamentSubmission"
-            element={<TournamentSubmission />}
-          />
+            <Route path="/Pricing" element={<Pricing />} />
 
-          <Route
-            path="/SuccessfulSubmission"
-            element={<SuccessfulSubmission />}
-          />
+            <Route path="/MyWallet" element={<MyWallet />} />
 
-          <Route path="/Submissions" element={<Submissions />} />
-          <Route path="/FailedSubmission" element={<FailedSubmission />} />
+            <Route path="/Profile" element={<Profile />} />
 
-          <Route path="/Terms" element={<Terms />} />
+            <Route
+              path="/TournamentSubmission"
+              element={<TournamentSubmission />}
+            />
 
-          <Route path="/Privacy" element={<Privacy />} />
+            <Route
+              path="/SuccessfulSubmission"
+              element={<SuccessfulSubmission />}
+            />
 
-          <Route path="/GameRules" element={<GameRules />} />
+            <Route path="/Submissions" element={<Submissions />} />
+            <Route path="/FailedSubmission" element={<FailedSubmission />} />
 
-          <Route path="/Support" element={<Support />} />
+            <Route path="/Terms" element={<Terms />} />
+
+            <Route path="/Privacy" element={<Privacy />} />
+
+            <Route path="/GameRules" element={<GameRules />} />
+
+            <Route path="/Support" element={<Support />} />
+          </Route>
         </Routes>
-
-        <Footer />
       </Router>
     </>
   );

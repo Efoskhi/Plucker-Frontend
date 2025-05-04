@@ -55,7 +55,7 @@ const LeaderBoard = () => {
       />
 
       <img src={Pad1} className="absolute left-0 -z-10 bottom-0 " />
-      <div className=" space-y-6  h-full w-full z-20 py-20">
+      <div className=" space-y-6  h-full w-full z-20 py-20 lg:max-w-6xl mx-auto">
         <div className="w-full  py-6 px-6 text-white">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left Side */}
@@ -91,7 +91,7 @@ const LeaderBoard = () => {
       </div>
 
       {/* Tab Nav */}
-      <div className="flex gap-6 items-center text-sm font-medium px-4 py-2  overflow-x-auto whitespace-nowrap">
+      <div className="flex gap-6 items-center text-sm font-medium px-4 py-2 lg:max-w-6xl mx-auto  overflow-x-auto whitespace-nowrap">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -112,7 +112,9 @@ const LeaderBoard = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="p-12">{tabComponents[activeTab]}</div>
+      <div className="lg:max-w-6xl mx-auto py-6">
+        {tabComponents[activeTab]}
+      </div>
     </div>
   );
 };
