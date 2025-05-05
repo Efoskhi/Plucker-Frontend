@@ -16,6 +16,7 @@ import Level from "../../assets/Level.png"; // Replace with your actual logo
 import HowItWorks from "../../components/Pricing/HowItWorks";
 import FaqSection from "../../components/Pricing/FAQ";
 import PromoBanner from "../../components/Pricing/PromoBanner";
+import { Link } from "react-router-dom";
 
 const Pricing = () => {
   return (
@@ -40,7 +41,7 @@ const Pricing = () => {
 
       <img src={Wave2} className="absolute left-0 -z-10 bottom-[40%] " />
       <div className=" space-y-6  h-full w-full z-20 py-20 lg:max-w-6xl mx-auto">
-        <div className="w-full  py-6 px-6 text-white">
+        <div className="w-full  py-6 px-2 text-white">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left Side */}
             <div>
@@ -55,7 +56,7 @@ const Pricing = () => {
         </div>
       </div>
 
-      <div className="min-h-screen lg:max-w-4xl mx-auto text-white flex flex-col items-center p-6 space-y-8">
+      <div className="min-h-screen lg:max-w-4xl mx-auto text-white flex flex-col items-center py-6 px-2 space-y-8">
         {/* Plans */}
         <div className="flex flex-col md:flex-row  w-full gap-6">
           {/* Monthly Plan */}
@@ -68,10 +69,11 @@ const Pricing = () => {
                 ₦1,000 <span className="text-sm font-normal">/ month</span>
               </div>
             </div>
-
-            <button className="bg-[#00ff85] hover:bg-green-500 text-black font-bold py-2 px-6 rounded-md">
-              Upgrade Now
-            </button>
+            <Link to="/UpgradeAccount">
+              <button className="bg-[#00ff85] hover:bg-green-500 text-black font-bold py-2 px-6 rounded-md">
+                Upgrade Now
+              </button>
+            </Link>
           </div>
 
           {/* Monthly Plan */}
@@ -86,9 +88,11 @@ const Pricing = () => {
             </div>
 
             <div className="flex flex-col gap-2 items-end">
-              <button className="bg-[#00ff85] hover:bg-green-500 text-black font-bold py-2 px-6 rounded-md">
-                Upgrade Now
-              </button>
+              <Link to="/UpgradeAccount">
+                <button className="bg-[#00ff85] hover:bg-green-500 text-black font-bold py-2 px-6 rounded-md">
+                  Upgrade Now
+                </button>
+              </Link>
               <button className="border text-[#00ead4] hover:text-white font-bold py-2 px-6 rounded-md w-full">
                 Save N2000
               </button>

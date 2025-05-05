@@ -21,6 +21,7 @@ import PromoBanner from "../components/Pricing/PromoBanner";
 import UserProfileCard from "../components/Profile/UserProfileCard";
 import Activity from "../components/Profile/Activity";
 import AccountSettings from "../components/Profile/AccountSettings";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -44,8 +45,8 @@ const Profile = () => {
       {/* <img src={Wave1} className="absolute right-0 -z-10 top-[40%] " /> */}
 
       <img src={Wave2} className="absolute left-0 -z-10 bottom-[40%] " />
-      <div className=" space-y-6  h-full w-full z-20 py-20">
-        <div className="w-full  py-6 px-6 text-white">
+      <div className=" space-y-6  h-full w-full z-20 py-20 lg:max-w-6xl mx-auto">
+        <div className="w-full  py-6 px-2 text-white">
           <div className="flex flex-col md:flex-row md:items-center lg:max-w-5xl mx-auto pt-36  md:justify-between gap-4">
             <div>
               <h1 className="text-3xl md:text-4xl font-semibold inline-flex items-center">
@@ -55,15 +56,22 @@ const Profile = () => {
             </div>
 
             <div className="flex space-x-2">
-              <button className="flex items-center px-4 py-2 bg-[#00FF85] text-white rounded-md shadow hover:bg-green-600 transition-colors">
-                <span className="mr-2">💎</span>
-                <span className="font-medium">Upgrade to Verified</span>
-              </button>
-
-              <button className="flex items-center px-4 py-2 bg-[#FFD95A] text-gray-800 rounded-md shadow hover:bg-yellow-400 transition-colors">
-                <span className="mr-2">📋</span>
-                <span className="font-medium">My Submissions</span>
-              </button>
+              <Link to="/UpgradeAccount">
+                <button className="flex items-center px-4 py-2 bg-[#00FF85] text-white rounded-md shadow hover:bg-green-600 transition-colors">
+                  <span className="mr-2">💎</span>
+                  <span className="font-medium lg:text-base text-[10px]">
+                    Upgrade to Verified
+                  </span>
+                </button>
+              </Link>
+              <Link to="/Submissions">
+                <button className="flex items-center px-4 py-2 bg-[#FFD95A] text-gray-800 rounded-md shadow hover:bg-yellow-400 transition-colors">
+                  <span className="mr-2">📋</span>
+                  <span className="font-medium lg:text-base text-[10px]">
+                    My Submissions
+                  </span>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

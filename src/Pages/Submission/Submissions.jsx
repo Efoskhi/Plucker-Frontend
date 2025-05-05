@@ -3,18 +3,18 @@ import React from "react";
 import { useState } from "react";
 import { FaTrophy } from "react-icons/fa";
 import { BsChevronDown } from "react-icons/bs";
-import bgStars from "../assets/Background.png"; // Adjust the path as needed
+import bgStars from "../../assets/Background.png"; // Adjust the path as needed
 
-import Faces from "../assets/Faces.png"; // Replace with your actual logo
+import Faces from "../../assets/Faces.png"; // Replace with your actual logo
 
-import Strike from "../assets/Strike.png"; // Replace with your actual logo
+import Strike from "../../assets/Strike.png"; // Replace with your actual logo
 
-import Banner from "../assets/Banner5.png"; // Replace with your actual logo
+import Banner from "../../assets/Banner5.png"; // Replace with your actual logo
 
-import Level from "../assets/Level.png"; // Replace with your actual logo
+import Level from "../../assets/Level.png"; // Replace with your actual logo
 
-import Smile from "../assets/Smile.png";
-import Card from "../components/Submission/Card";
+import Smile from "../../assets/Smile.png";
+import Card from "../../components/Submission/Card";
 
 const Submissions = () => {
   return (

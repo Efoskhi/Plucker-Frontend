@@ -1,7 +1,4 @@
 import React from "react";
-import { FaTrophy } from "react-icons/fa";
-import { BsCashStack } from "react-icons/bs";
-import { BiCalendar } from "react-icons/bi";
 
 const PastTournaments = () => {
   const tournaments = [
@@ -32,54 +29,38 @@ const PastTournaments = () => {
   ];
 
   return (
-    <div className="mx-auto py-4">
-      <div className="bg-[#0F0F0F] rounded-lg overflow-hidden shadow-2xl shadow-[#00DAE41F] border border-[#00B8C1]">
-        {/* Table Header */}
-        <div className="flex items-center bg-[#2C2C2C] text-gray-300 py-3 px-4">
-          <div className="w-10 text-center font-medium">#</div>
-          <div className="flex items-center space-x-2 flex-1 px-2">
-            🏆
-            <span className="text-sm font-medium">Tournament Title</span>
-          </div>
-          <div className="w-1/4 flex items-center space-x-2 px-2">
-            <span className=" font-bold">🥇</span>
-            <span className="text-sm font-medium">Winner</span>
-          </div>
-          <div className="w-1/6 flex items-center space-x-2 px-2">
-            💰
-            <span className="text-sm font-medium">Prize</span>
-          </div>
-          <div className="w-1/5 flex items-center space-x-2 px-2">
-            ⏳ <span className="text-sm font-medium"> End Date</span>
-          </div>
-        </div>
-
-        {/* Table Body */}
-        <div className="divide-y divide-gray-800">
+    <div className="mx-auto  w-full overflow-x-auto border border-[#00B8C1] rounded-lg">
+      <table className="min-w-full table-auto bg-[#0F0F0F]  rounded-lg overflow-hidden text-sm text-left text-gray-400 shadow-2xl shadow-[#00DAE41F]">
+        <thead className="bg-[#2C2C2C] text-gray-300">
+          <tr>
+            <th className="py-3 px-4 text-center">#</th>
+            <th className="py-3 px-4 whitespace-nowrap">🏆 Tournament Title</th>
+            <th className="py-3 px-4 whitespace-nowrap">🥇 Winner</th>
+            <th className="py-3 px-4 whitespace-nowrap">💰 Prize</th>
+            <th className="py-3 px-4 whitespace-nowrap">⏳ End Date</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-800">
           {tournaments.map((tournament) => (
-            <div
+            <tr
               key={tournament.id}
-              className="flex items-center py-3 px-4 hover:bg-gray-800 transition-colors"
+              className="hover:bg-gray-800 transition-colors"
             >
-              <div className="w-10 text-center text-gray-400 font-medium">
+              <td className="py-3 px-4 text-center font-medium text-gray-400">
                 {tournament.rank}
-              </div>
-              <div className="flex-1 px-2 text-gray-200 font-medium">
+              </td>
+              <td className="py-3 px-4 font-medium text-gray-200">
                 {tournament.title}
-              </div>
-              <div className="w-1/4 px-2 text-blue-400">
-                {tournament.winner}
-              </div>
-              <div className="w-1/6 px-2 text-green-500 font-medium">
+              </td>
+              <td className="py-3 px-4 text-blue-400">{tournament.winner}</td>
+              <td className="py-3 px-4 font-medium text-green-500">
                 {tournament.prize}
-              </div>
-              <div className="w-1/5 px-2 text-gray-400 text-sm">
-                {tournament.date}
-              </div>
-            </div>
+              </td>
+              <td className="py-3 px-4 text-sm">{tournament.date}</td>
+            </tr>
           ))}
-        </div>
-      </div>
+        </tbody>
+      </table>
     </div>
   );
 };

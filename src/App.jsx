@@ -12,7 +12,7 @@ import SuccessfulSubmission from "./Pages/Tournament/SuccessfulSubmission";
 import FailedSubmission from "./Pages/Tournament/FailedSubmission";
 import Pricing from "./Pages/Pricing/Monetization";
 import Profile from "./Pages/Profile";
-import Submissions from "./Pages/Submissions";
+import Submissions from "./Pages/Submission/Submissions";
 import Footer from "./components/Layout/Footer";
 import Terms from "./Pages/Legal/Terms";
 import Privacy from "./Pages/Legal/Privacy";
@@ -21,6 +21,10 @@ import Support from "./Pages/Legal/Support";
 import TournamentSubmission from "./Pages/Tournament/TournamentSubmission";
 import MyWallet from "./Pages/WalletFunds/MyWallet";
 import Layout from "./components/Layout/Layout";
+import EmptySubmissions from "./Pages/Submission/EmptySubmissions";
+import UpgrdeAccount from "./Pages/WalletFunds/Upgrade";
+
+import UpgradeSuccessful from "./Pages/WalletFunds/UpgradeSuccessful";
 
 function App() {
   return (
@@ -47,6 +51,9 @@ function App() {
 
             <Route path="/MyWallet" element={<MyWallet />} />
 
+            <Route path="/UpgradeAccount" element={<UpgrdeAccount />} />
+
+            <Route path="/UpgradeSuccessful" element={<UpgradeSuccessful />} />
             <Route path="/Profile" element={<Profile />} />
 
             <Route
@@ -60,6 +67,8 @@ function App() {
             />
 
             <Route path="/Submissions" element={<Submissions />} />
+
+            <Route path="/EmptySubmissions" element={<EmptySubmissions />} />
             <Route path="/FailedSubmission" element={<FailedSubmission />} />
 
             <Route path="/Terms" element={<Terms />} />

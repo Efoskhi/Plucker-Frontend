@@ -37,7 +37,7 @@ export default function Activity() {
   ]);
 
   return (
-    <div className=" p-6">
+    <div className=" py-6 px-2">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-gray-400 text-lg font-medium mb-4">
           Recent Activity

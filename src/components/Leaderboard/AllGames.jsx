@@ -75,7 +75,7 @@ const leaderboard = [
 
 const AllGames = () => {
   return (
-    <div className="overflow-x-auto text-white bg-[#0F0F0F] text-sm border border-cyan-400  shadow-2xl  rounded-md shadow-[#00DAE4]">
+    <div className="overflow-x-auto whitespace-nowrap  text-white bg-[#0F0F0F] text-sm border border-cyan-400  shadow-2xl  rounded-md shadow-[#00DAE4]">
       <table className="w-full min-w-[700px] border border-white/20 rounded-lg overflow-hidden">
         <thead className="bg-white/10 text-left uppercase text-xs">
           <tr>

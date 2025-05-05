@@ -27,7 +27,7 @@ const getStars = (count) => {
 
 const Challenge = () => {
   return (
-    <div className="overflow-auto bg-[#0F0F0F] text-sm border border-cyan-400  shadow-2xl  rounded-md shadow-[#00DAE4]">
+    <div className="overflow-auto whitespace-nowrap  bg-[#0F0F0F] text-sm border border-cyan-400  shadow-2xl  rounded-md shadow-[#00DAE4]">
       <table className="min-w-full  text-white  rounded-lg">
         <thead className="bg-white/10 ">
           <tr className="text-left border-b border-gray-700">

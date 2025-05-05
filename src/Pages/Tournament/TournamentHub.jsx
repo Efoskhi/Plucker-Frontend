@@ -54,7 +54,7 @@ const TournamentHub = () => {
 
       <img src={Strike} className="absolute left-0 -z-10 bottom-0 " />
       <div className=" space-y-6  h-full w-full z-20 py-20 lg:max-w-6xl mx-auto">
-        <div className="w-full  py-6 px-6 text-white">
+        <div className="w-full  py-6 px-2 text-white">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left Side */}
             <div>

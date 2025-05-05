@@ -8,7 +8,7 @@ export default function AccountSettings() {
   const [currentPassword, setCurrentPassword] = useState("");
 
   return (
-    <div className="max-w-4xl mx-auto py-6 lg:px-0 px-6">
+    <div className="max-w-4xl mx-auto py-6 px-2 lg:px-0">
       <div className=" mx-auto">
         <h1 className="text-white text-2xl font-bold mb-6">Account Settings</h1>
 

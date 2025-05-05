@@ -36,7 +36,7 @@ const getStatusIcon = (status) => {
 
 const AllTournaments = () => {
   return (
-    <div className="py-4 overflow-auto rounded-xl ">
+    <div className="py-4 overflow-auto rounded-xl whitespace-nowrap ">
       <table className="w-full bg-[#0F0F0F] text-white border border-[#00B8C1] shadow-2xl shadow-[#00DAE41F] rounded-xl">
         <thead className="bg-[#2C2C2C]">
           <tr className="text-left border-b border-gray-700">

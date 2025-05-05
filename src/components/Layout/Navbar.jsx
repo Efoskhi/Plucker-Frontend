@@ -25,7 +25,7 @@ const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <nav className="bg-black/20 fixed top-0 w-full  text-white px-6 lg:px-40 py-4 flex justify-between items-center  z-50">
+    <nav className="bg-black/20 fixed top-0 w-full  text-white px-2 lg:px-[7vw] py-4 flex justify-between items-center  z-50">
       {/* Logo */}
       <div className="flex items-center space-x-2">
         <img src={Logo} alt="Logo" className="h-8" />
@@ -60,11 +60,14 @@ const Navbar = () => {
 
       {/* Right Side - Profile */}
       <div className="flex items-center space-x-3">
-        <img src={Avatar} alt="User" className="h-8 w-8 rounded-full" />
-        <div className="text-left text-sm">
-          <p className="font-semibold">Osato Elijah</p>
-          <p className="text-xs text-gray-400">LEVEL 1</p>
-        </div>
+        <Link className="inline-flex gap-2 items-center" to="/Profile">
+          <img src={Avatar} alt="User" className="h-8 w-8 rounded-full" />
+          <div className="text-left text-sm">
+            <p className="font-semibold">Osato Elijah</p>
+            <p className="text-xs text-gray-400">LEVEL 1</p>
+          </div>
+        </Link>
+
         <img
           src={Bell}
           alt="Icon"
@@ -88,7 +91,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-black text-white flex flex-col items-start px-6 py-4 space-y-4 md:hidden">
-          <NavItem icon={<FaHome />} label="Home" to="/" />
+          <NavItem icon={<FaHome />} label="Home" to="/Explore" />
           <NavItem
             icon={<FaChartBar />}
             label="Leaderboard"

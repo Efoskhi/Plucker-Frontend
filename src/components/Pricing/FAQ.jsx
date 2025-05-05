@@ -24,7 +24,7 @@ export default function FaqSection() {
       <h2 className="text-3xl font-bold">FAQ</h2>
 
       <div className="w-full lg:w-full space-y-4">
-        <div className="bg-zinc-900 rounded-lg p-4 space-y-4">
+        <div className="bg-zinc-900 rounded-lg lg:p-4 p-2 space-y-4">
           <div className="text-sm text-gray-400 mb-2">
             <span className="text-blue-400">🔹</span> Most popular questions
           </div>

@@ -24,7 +24,7 @@ const ExploreGames = () => {
   };
   return (
     <div
-      className="min-h-screen bg-cover bg-center  text-white px-4 relative z-0"
+      className="min-h-screen bg-cover bg-center  text-white px-2 relative z-0"
       style={{ backgroundImage: `url(${bgStars})` }}
     >
       <img src={Pad2} className="absolute right-0 -z-10 top-0" />
