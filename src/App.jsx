@@ -18,13 +18,14 @@ import Terms from "./Pages/Legal/Terms";
 import Privacy from "./Pages/Legal/Privacy";
 import GameRules from "./Pages/Legal/GameRules";
 import Support from "./Pages/Legal/Support";
-import TournamentSubmission from "./Pages/Tournament/TournamentSubmission";
+import TournamentSubmission from "./Pages/Tournament/SelectedTournament";
 import MyWallet from "./Pages/WalletFunds/MyWallet";
 import Layout from "./components/Layout/Layout";
 import EmptySubmissions from "./Pages/Submission/EmptySubmissions";
 import UpgrdeAccount from "./Pages/WalletFunds/Upgrade";
 
 import UpgradeSuccessful from "./Pages/WalletFunds/UpgradeSuccessful";
+import SelectedTournament from "./Pages/Tournament/SelectedTournament";
 
 function App() {
   return (
@@ -46,6 +47,11 @@ function App() {
             <Route path="/LeaderBoard" element={<LeaderBoard />} />
 
             <Route path="/TournamentHub" element={<TournamentHub />} />
+
+            <Route
+              path="/SelectedTournament"
+              element={<SelectedTournament />}
+            />
 
             <Route path="/Pricing" element={<Pricing />} />
 

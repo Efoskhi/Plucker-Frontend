@@ -6,8 +6,9 @@ import Paint1 from "../../assets/Paint1.png";
 
 import Paint2 from "../../assets/Paint2.png";
 import Dog2 from "../../assets/Dog2.png";
+import { Link } from "react-router-dom";
 
-export default function TournamentSubmission() {
+export default function SelectedTournament() {
   const [agree, setAgree] = useState(false);
 
   return (
@@ -103,9 +104,12 @@ export default function TournamentSubmission() {
         {/* Confirm Button */}
 
         <div className="inline-flex items-center gap-8 w-full">
-          <button className="w-full py-2 rounded-md text-black bg-[#00DAE4] hover:bg-cyan-700 font-semibold ">
-            ✅ Confirm & Submit
-          </button>{" "}
+          <Link className="w-full" to="/SuccessfulSubmission">
+            <button className="w-full py-2 rounded-md text-black bg-[#00DAE4] hover:bg-cyan-700 font-semibold ">
+              ✅ Confirm & Submit
+            </button>{" "}
+          </Link>
+
           <button className="w-full py-2 rounded-md text-white bg-transparent border hover:bg-cyan-700 font-semibold ">
             ❌ Cancel
           </button>

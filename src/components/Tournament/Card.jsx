@@ -9,6 +9,7 @@ import Leaf from "../../assets/Leaf.png";
 
 import Smile from "../../assets/Smile.png";
 import { IoMdClose } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Card = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,12 +115,14 @@ const Card = () => {
             </ul>
 
             {/* Confirmation Button */}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="bg-[#00DAE4] hover:bg-cyan-700 text-black font-medium text-sm py-2 px-4 rounded-md w-full"
-            >
-              ✅ Got it! Let me Play
-            </button>
+            <Link to="/SelectedTournament">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="bg-[#00DAE4] hover:bg-cyan-700 text-black font-medium text-sm py-2 px-4 rounded-md w-full"
+              >
+                ✅ Got it! Let me Play
+              </button>
+            </Link>
           </div>
         </div>
       )}

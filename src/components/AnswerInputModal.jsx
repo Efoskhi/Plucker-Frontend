@@ -9,7 +9,7 @@ const AnswerInputModal = ({ setIsOpen }) => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate("/"); // this routes to the homepage
+    navigate("/Explore"); // this routes to the homepage
   };
 
   const [step, setStep] = useState("form"); // form | loading | success

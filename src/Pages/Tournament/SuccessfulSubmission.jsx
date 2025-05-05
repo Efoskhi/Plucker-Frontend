@@ -10,6 +10,7 @@ import Dog2 from "../../assets/Dog2.png";
 import Smile from "../../assets/Smile.png";
 
 import Success from "../../assets/Success.gif";
+import { Link } from "react-router-dom";
 
 export default function SuccessfulSubmission() {
   const [agree, setAgree] = useState(false);
@@ -97,12 +98,16 @@ export default function SuccessfulSubmission() {
         {/* Confirm Button */}
 
         <div className="inline-flex items-center gap-8 w-full">
-          <button className="w-full py-2 rounded-md text-black bg-[#00DAE4] hover:bg-cyan-700 font-semibold ">
-            ✅Back to Tournamet
-          </button>{" "}
-          <button className="w-full py-2 rounded-md text-white bg-transparent border hover:bg-cyan-700 font-semibold ">
-            View My Entries
-          </button>
+          <Link className="w-full" to="/TournamentHub">
+            <button className="w-full py-2 rounded-md text-black bg-[#00DAE4] hover:bg-cyan-700 font-semibold ">
+              ✅Back to Tournamet
+            </button>{" "}
+          </Link>
+          <Link className="w-full" to="/Submissions">
+            <button className="w-full py-2 rounded-md text-white bg-transparent border hover:bg-cyan-700 font-semibold ">
+              View My Entries
+            </button>
+          </Link>
         </div>
       </div>
     </div>
