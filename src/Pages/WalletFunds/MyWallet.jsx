@@ -8,7 +8,7 @@ import Strike from "../../assets/Stars.png"; // Replace with your actual logo
 
 import Banner from "../../assets/Banner6.png"; // Replace with your actual logo
 
-import Dollars from "../../assets/Dollars.png";
+import Dollars from "../../assets/dollars.png";
 
 import Splash from "../../assets/Splash.png";
 import WalletHistory from "../../components/MyWallet/WalletHistory";
