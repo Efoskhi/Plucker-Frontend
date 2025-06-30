@@ -4,7 +4,7 @@ import bgStars from "../../assets/Background.png"; // Adjust the path as needed
 
 import Banner from "../../assets/Banner5.png"; // Replace with your actual logo
 
-import MailBox from "../../assets/MailBox.png"; // Replace with your actual logo
+import MailBox from "../../assets/Mailbox.png"; // Replace with your actual logo
 
 const Support = () => {
   return (
