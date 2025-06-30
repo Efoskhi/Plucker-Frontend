@@ -12,9 +12,9 @@ import Leader from "../../assets/Leader.png";
 
 import Avatar from "../../assets/Avatar.png";
 
-import Dollar from "../../assets/Dollars.png";
+import Dollar from "../../assets/dollars.png";
 
-import Bell from "../../assets/Bell.png";
+import Bell from "../../assets/bell.png";
 import { Link, useNavigate } from "react-router-dom";
 import NotificationModal from "../Notification";
 
