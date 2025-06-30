@@ -2,7 +2,7 @@ import React from "react";
 import bgStars from "../../assets/Background.png"; // Adjust the path as needed
 import logo from "../../assets/Logo.png"; // Replace with your actual logo
 
-import MailBox from "../../assets/MailBox.png"; // Replace with your actual logo
+import MailBox from "../../assets/Mailbox.png"; // Replace with your actual logo
 import { Link } from "react-router-dom";
 
 const VerifyEmail = () => {
