@@ -17,12 +17,15 @@ import Dollar from "../../assets/dollars.png";
 import Bell from "../../assets/bell.png";
 import { Link, useNavigate } from "react-router-dom";
 import NotificationModal from "../Notification";
+import { useAppContext } from "../../context/AppContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { user } = useAppContext();
 
   return (
     <nav className="bg-black/20 fixed top-0 w-full  text-white px-2 lg:px-[7vw] py-4 flex justify-between items-center  z-50">
@@ -61,10 +64,10 @@ const Navbar = () => {
       {/* Right Side - Profile */}
       <div className="flex items-center space-x-3">
         <Link className="inline-flex gap-2 items-center" to="/Profile">
-          <img src={Avatar} alt="User" className="h-8 w-8 rounded-full" />
+          <img src={user?.profilePhoto ?? Avatar} alt="User" className="h-8 w-8 rounded-full" />
           <div className="text-left text-sm">
-            <p className="font-semibold">Osato Elijah</p>
-            <p className="text-xs text-gray-400">LEVEL 1</p>
+            <p className="font-semibold">{ user?.fullname }</p>
+            <p className="text-xs text-gray-400">LEVEL { user.level }</p>
           </div>
         </Link>
 

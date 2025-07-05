@@ -4,21 +4,17 @@ import Loading from "../assets/Loading.gif";
 
 import Success from "../assets/Success.gif";
 import { useNavigate } from "react-router-dom";
+import useGamePlay from "../hooks/useGamePlay";
+import { useAppContext } from "../context/AppContext";
 
 const AnswerInputModal = ({ setIsOpen }) => {
   const navigate = useNavigate();
 
+  const { answer, step, handlePlayGame, setAnswer } = useGamePlay();
+  const { currentGameDetails, user } = useAppContext();
+
   const handleGoHome = () => {
     navigate("/Explore"); // this routes to the homepage
-  };
-
-  const [step, setStep] = useState("form"); // form | loading | success
-
-  const handleSubmit = () => {
-    setStep("loading");
-    setTimeout(() => {
-      setStep("success");
-    }, 3000); // simulate loading
   };
 
   return (
@@ -38,14 +34,15 @@ const AnswerInputModal = ({ setIsOpen }) => {
 
             <h2 className="text-lg font-semibold mb-2">Question</h2>
             <p className="text-xl font-medium mb-2">
-              “Rename Lagos based on its current vibe”
+              “{currentGameDetails.title}”
             </p>
             <p className="text-sm text-gray-400 mb-4">
-              💡 Keep answers short, max 20 words. Creativity + humor gets
-              higher ratings.
+              💡 {currentGameDetails.description}
             </p>
 
             <textarea
+              onInput={e => setAnswer(e.target.value)}
+              value={answer}
               rows={4}
               placeholder="type your answer here..."
               className="w-full p-3 rounded-md bg-[#111] text-white placeholder-gray-500 resize-none mb-4 outline-none"
@@ -57,7 +54,7 @@ const AnswerInputModal = ({ setIsOpen }) => {
             </p>
 
             <button
-              onClick={handleSubmit}
+              onClick={handlePlayGame}
               className="bg-[#00DAE4] mb-4 hover:bg-cyan-700 text-black font-medium text-sm py-2 px-4 rounded-md w-full"
             >
               Submit Your Answer
@@ -66,7 +63,7 @@ const AnswerInputModal = ({ setIsOpen }) => {
         )}
 
         {/* Loading Modal */}
-        {step === "loading" && (
+        {step === 'loading' && (
           <div className="bg-[#000000] rounded-lg p-6 w-full max-w-sm text-center shadow-lg shadow-cyan-600">
             <img
               src={Loading} // 👈 replace with your animated face GIF
@@ -77,13 +74,13 @@ const AnswerInputModal = ({ setIsOpen }) => {
               Hold on while we send in your response...
             </p>
             <p className="text-green-400 text-sm">
-              🟢 We're with you, Elijah...
+              🟢 We're with you, {user.fullname}...
             </p>
           </div>
         )}
 
         {/* Success Modal */}
-        {step === "success" && (
+        {step === 'success' && (
           <div className="bg-[#000000] lg:mx-[30%] rounded-lg p-6 w-full  text-center relative shadow-xl shadow-cyan-600">
             <img
               src={Success}
@@ -98,7 +95,7 @@ const AnswerInputModal = ({ setIsOpen }) => {
               {/* <p className="mt-2">
                 <strong>Game:</strong> Rename Lagos based on its current vibe
               </p> */}
-              <p>💰 Seed: ₦500 • 🏆 Potential Payout: ₦10,000</p>
+              <p>💰 Seed: ₦{currentGameDetails.entryFee} • 🏆 Potential Payout: ₦{currentGameDetails.reward}</p>
               <p className="pt-4">
                 👥 27 players and counting — you're officially in!
               </p>

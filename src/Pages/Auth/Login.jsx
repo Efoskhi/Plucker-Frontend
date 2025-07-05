@@ -7,6 +7,8 @@ import Logo from "../../assets/Logo.png";
 import Google from "../../assets/Google.png";
 import { CiMail } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Loading from "../../components/Loading";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +16,8 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const { isLoading, inputs, handleInput, handleLogin, handleGoogleLogin } = useAuth();
 
   return (
     <div className="w-full flex h-screen bg-black">
@@ -36,7 +40,10 @@ const Login = () => {
               </h1>
             </div>
 
-            <button className="w-full bg-[#1A1A1A] text-white text-xs py-3 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-200 transition">
+            <button 
+              className="w-full bg-[#1A1A1A] text-white text-xs py-3 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-200 transition"
+              onClick={handleGoogleLogin}
+            >
               <img src={Google} alt="Google" className="h-5 w-5" />
               <span>Log in with Google</span>
             </button>
@@ -55,6 +62,8 @@ const Login = () => {
                     type="email"
                     placeholder="Your email address"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('login.email', e.target.value)}
+                    value={inputs.login.email}
                   />
                   <span className="absolute right-3 top-2.5 text-gray-400">
                     <CiMail />
@@ -69,6 +78,8 @@ const Login = () => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Your password here"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('login.password', e.target.value)}
+                    value={inputs.login.password}
                   />
                   <button
                     type="button"
@@ -88,11 +99,12 @@ const Login = () => {
                 </div>
               </div>
 
-              <Link to="/Explore">
-                <button className="w-full mt-6 bg-[#00DAE4] hover:bg-cyan-700 text-black py-2 rounded-md font-semibold  transition">
-                  Log in
-                </button>
-              </Link>
+              <button 
+                className="w-full mt-6 bg-[#00DAE4] hover:bg-cyan-700 text-black py-2 rounded-md font-semibold  transition"
+                onClick={handleLogin}
+              >
+                {isLoading ? <Loading/> : 'Log in'}
+              </button>
             </form>
 
             <div className="text-center text-sm mt-4 text-gray-400">

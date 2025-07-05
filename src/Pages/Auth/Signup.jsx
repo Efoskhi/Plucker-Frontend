@@ -9,16 +9,20 @@ import Google from "../../assets/Google.png";
 import Gamepad from "../../assets/Gamepad.png";
 import { CiMail, CiUser } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Loading from "../../components/Loading";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const { isLoading, inputs, handleInput, handleSignup } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   return (
-    <div className="w-full flex h-screen bg-black">
+    <div className="w-full flex h-screen bg-black fixed overflow-y-auto">
       <div className="lg:w-1/2 w-full relative lg:px-32 px-4">
         <img
           src={Logo}
@@ -55,12 +59,62 @@ const Signup = () => {
 
             <form className="space-y-4">
               <div>
+                <label className="block text-xs mb-1">Fullname</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Santa Spencer"
+                    className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('signup.fullname', e.target.value)}
+                    value={inputs.signup.fullname}
+                  />
+                  <span className="absolute right-3 top-2.5 text-gray-400">
+                    <CiUser />
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs mb-1">Username</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Spencer_X"
+                    className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('signup.username', e.target.value)}
+                    value={inputs.signup.username}
+                  />
+                  <span className="absolute right-3 top-2.5 text-gray-400">
+                    <CiUser />
+                  </span>
+                </div>
+              </div>
+
+              <div>
                 <label className="block text-xs mb-1">Email</label>
                 <div className="relative">
                   <input
                     type="text"
                     placeholder="naijasharpguy@gmail.com"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('signup.email', e.target.value)}
+                    value={inputs.signup.email}
+                  />
+                  <span className="absolute right-3 top-2.5 text-gray-400">
+                    <CiUser />
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs mb-1">Phone Number</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="090..."
+                    className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('signup.phoneNumber', e.target.value)}
+                    value={inputs.signup.phoneNumber}
                   />
                   <span className="absolute right-3 top-2.5 text-gray-400">
                     <CiUser />
@@ -75,6 +129,8 @@ const Signup = () => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Your password here"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('signup.password', e.target.value)}
+                    value={inputs.signup.password}
                   />
                   <button
                     type="button"
@@ -93,6 +149,8 @@ const Signup = () => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Your password here"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
+                    onChange={e => handleInput('signup.confirmPassword', e.target.value)}
+                    value={inputs.signup.confirmPassword}
                   />
                   <button
                     type="button"
@@ -103,11 +161,20 @@ const Signup = () => {
                   </button>
                 </div>
               </div>
-              <Link to="/VerifyEmail">
-                <button className="w-full mt-6 bg-[#00DAE4] hover:bg-cyan-700 items-center justify-center text-black py-2 rounded-md font-semibold  transition inline-flex gap-2 ">
-                  Create My Plicked Account <FaLongArrowAltRight />
-                </button>
-              </Link>
+               <button 
+                className="w-full mt-6 bg-[#00DAE4] hover:bg-cyan-700 items-center justify-center text-black py-2 rounded-md font-semibold transition inline-flex gap-2"
+                onClick={handleSignup}
+              >
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    Create My Plicked Account
+                    <FaLongArrowAltRight />
+                  </>
+                )}
+              </button>
+
             </form>
 
             <div className="text-center text-sm mt-4 text-gray-400">
@@ -119,7 +186,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 lg:flex  hidden">
+      <div className="w-1/2 lg:flex hidden">
         <img src={Pad} className="w-full h-full" />
       </div>
     </div>

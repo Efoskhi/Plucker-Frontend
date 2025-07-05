@@ -13,12 +13,15 @@ import Pad2 from "../assets/Pad2.png"; // Replace with your actual logo
 import Pad1 from "../assets/Pad3.png"; // Replace with your actual logo
 
 import { FaFire, FaTrophy, FaCoins } from "react-icons/fa";
+import useDashboard from "../hooks/useDashboard";
 
 const ExploreGames = () => {
   const [activeTab, setActiveTab] = useState("trending");
 
+  const { games, isLoading } = useDashboard();
+
   const tabContent = {
-    trending: <TrendingGames />,
+    trending: <TrendingGames games={games.TRENDING}/>,
     challenges: <NewChallenges />,
     payouts: <HighestPayouts />,
   };
