@@ -17,6 +17,7 @@ import AllGames from "../components/Leaderboard/AllGames";
 
 import Challenge from "../components/Leaderboard/Challenge";
 import { Link } from "react-router-dom";
+import useLeaderboard from "../hooks/useLeaderboard";
 
 const tabs = [
   { id: "all", label: "All Games", icon: "🌍" },
@@ -24,13 +25,6 @@ const tabs = [
   { id: "bribe", label: "Avoid Bribe Story Game", icon: "💡" },
   { id: "fashion", label: "Fashion Trend Roast", icon: "💎" },
 ];
-
-const tabComponents = {
-  all: <AllGames />,
-  rename: <Challenge />,
-  bribe: <div className="p-4">💡 Story mode: Avoid Bribe Game</div>,
-  fashion: <div className="p-4">💎 Fashion Roast Area</div>,
-};
 
 const dropdownItems = [
   {
@@ -85,8 +79,17 @@ const LeaderBoard = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const { isLoading, leaderboard } = useLeaderboard();
+
   const toggleDropdown = (index) => {
     setOpenDropdown((prev) => (prev === index ? null : index));
+  };
+
+  const tabComponents = {
+    all: <AllGames leaderboard={leaderboard}/>,
+    rename: <Challenge />,
+    bribe: <div className="p-4">💡 Story mode: Avoid Bribe Game</div>,
+    fashion: <div className="p-4">💎 Fashion Roast Area</div>,
   };
 
   return (

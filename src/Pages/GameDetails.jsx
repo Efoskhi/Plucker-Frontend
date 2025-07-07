@@ -16,9 +16,22 @@ import Leaf from "../assets/Leaf.png";
 import Smile from "../assets/Smile.png";
 import MoreLikeThis from "../components/MoreLikeThis";
 import AnswerInputModal from "../components/AnswerInputModal";
+import { useAppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
+import CountdownTimer from "../components/CountdownTimer";
 
 const GameDetails = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { currentGameDetails } = useAppContext();
+
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!currentGameDetails) {
+      navigate('/Explore');
+    }
+  }, [currentGameDetails, navigate]);
 
   return (
     <div
@@ -50,7 +63,7 @@ const GameDetails = () => {
 
           {/* Challenge Title */}
           <h2 className="text-xl font-semibold mb-4">
-            "Rename Lagos based on its current vibe"
+            {currentGameDetails.title}
           </h2>
 
           {/* Instructions */}
@@ -59,8 +72,7 @@ const GameDetails = () => {
               <img src={Smile} />
             </div>
             <div className="text-sm text-gray-400">
-              Keep answers short, max 20 words. Creativity + humor gets higher
-              ratings.
+              {currentGameDetails.description}
             </div>
           </div>
 
@@ -68,31 +80,47 @@ const GameDetails = () => {
           <div className="flex items-center justify-start gap-8 text-1xl  text-[#cccccc] mb-4">
             <div className="flex items-center gap-1">
               <FaMoneyBill1Wave className="text-gray-400" />
-              <span>₦500</span>
-              <span>•</span>
-              <span>Paid</span>
+              <span>₦{currentGameDetails.entryFee}</span>
+              {currentGameDetails.hasPlayedGame && 
+                <>
+                  <span>•</span>
+                  <span>Paid</span>
+                </>
+              }
             </div>
 
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 <MdOutlineCreditScore className="text-gray-400" />
-                <span>10,000</span>
+                <span>{currentGameDetails.reward}</span>
               </div>
 
               <div className="flex items-center gap-1">
                 <BsHourglassSplit className="text-gray-400" />
-                <span>03h 49m</span>
+                End:
+                <CountdownTimer endingAt={currentGameDetails.endingAt} />
               </div>
             </div>
           </div>
 
           {/* Action Button */}
-          <button
-            onClick={() => setIsOpen(true)}
-            className="bg-[#00DAE4] hover:bg-cyan-700 cursor-pointer  text-black font-medium text-sm py-2 px-4 rounded-md"
-          >
-            Type Your Answer
-          </button>
+
+          {currentGameDetails.hasPlayedGame ? (
+            <button
+              onClick={() => {}}
+              className="bg-[#00DAE4] hover:bg-cyan-700 cursor-pointer  text-black font-medium text-sm py-2 px-4 rounded-md"
+            >
+              View game status
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsOpen(true)}
+              className="bg-[#00DAE4] hover:bg-cyan-700 cursor-pointer  text-black font-medium text-sm py-2 px-4 rounded-md"
+            >
+              Type Your Answer
+            </button>
+          )}
+         
           {/* Modal Overlay */}
           {isOpen && <AnswerInputModal setIsOpen={setIsOpen} />}
         </div>

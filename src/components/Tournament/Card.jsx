@@ -9,16 +9,29 @@ import Leaf from "../../assets/Leaf.png";
 
 import Smile from "../../assets/Smile.png";
 import { IoMdClose } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import CountdownTimer from "../CountdownTimer";
+import { useAppContext } from "../../context/AppContext";
 
-const Card = () => {
+const Card = ({ tournament }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { setCurrentGameDetails } = useAppContext();
+
+  const navigate = useNavigate();
+
+  const handleOpenGame = () => {
+    setCurrentGameDetails(tournament);
+    setIsOpen(false);
+    navigate('/SelectedTournament');
+  }
+
   return (
     <div className="bg-[#1c1c1c] rounded-lg overflow-hidden p-4 text-white">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <div className="bg-black px-3 py-0.5 text-xs rounded flex items-center gap-1">
-          <span>LIVE</span>
+          <span>{ tournament.status }</span>
           <span className="text-gray-400">•</span>
           <span>Tournament</span>
         </div>
@@ -31,7 +44,7 @@ const Card = () => {
 
       {/* Challenge Title */}
       <h2 className="text-xl font-semibold mb-4">
-        "Rename Lagos based on its current vibe"
+        "{tournament.title}"
       </h2>
 
       {/* Instructions */}
@@ -44,8 +57,7 @@ const Card = () => {
           <img src={Smile} />
         </div>
         <div className="text-sm text-gray-400">
-          Keep answers short, max 20 words. Creativity + humor gets higher
-          ratings.
+          {tournament.description}
         </div>
       </div>
 
@@ -53,20 +65,24 @@ const Card = () => {
       <div className="flex items-center justify-between text-xs text-[#cccccc] mb-4">
         <div className="flex items-center gap-1">
           <FaMoneyBill1Wave className="text-gray-400" />
-          <span>₦500</span>
-          <span>•</span>
-          <span>Paid</span>
+          <span>₦{tournament.entryFee}</span>
+           {tournament.hasPlayedGame && 
+              <>
+                <span>•</span>
+                <span>Paid</span>
+              </>
+            }
         </div>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1">
             <MdOutlineCreditScore className="text-gray-400" />
-            <span>10,000</span>
+            <span>{tournament.reward}</span>
           </div>
 
           <div className="flex items-center gap-1">
             <BsHourglassSplit className="text-gray-400" />
-            <span>03h 49m</span>
+            <CountdownTimer endingAt={tournament.endingAt} />
           </div>
         </div>
       </div>
@@ -115,14 +131,12 @@ const Card = () => {
             </ul>
 
             {/* Confirmation Button */}
-            <Link to="/SelectedTournament">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="bg-[#00DAE4] hover:bg-cyan-700 text-black font-medium text-sm py-2 px-4 rounded-md w-full"
-              >
-                ✅ Got it! Let me Play
-              </button>
-            </Link>
+            <button
+              onClick={handleOpenGame}
+              className="bg-[#00DAE4] hover:bg-cyan-700 text-black font-medium text-sm py-2 px-4 rounded-md w-full"
+            >
+              ✅ Got it! Let me Play
+            </button>
           </div>
         </div>
       )}

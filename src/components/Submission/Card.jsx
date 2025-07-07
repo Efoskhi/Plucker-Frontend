@@ -10,7 +10,7 @@ import Smile from "../../assets/Smile.png";
 import { useNavigate } from "react-router-dom";
 import SubmissionDetailsModal from "./SubmissionDetailsModal";
 
-const Card = () => {
+const Card = ({ submission }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <div className="bg-[#1c1c1c] rounded-lg overflow-hidden p-4 text-white">
@@ -18,8 +18,12 @@ const Card = () => {
       <div className="flex items-center gap-2 mb-4">
         <div className="bg-black px-3 py-0.5 text-xs rounded flex items-center gap-1">
           <span>Answer</span>
-          <span className="text-gray-400">•</span>
-          <span>Tournament</span>
+          {submission.game.isTournament &&
+            <>
+              <span className="text-gray-400">•</span>
+              <span>Tournament</span>
+            </>
+          }
         </div>
       </div>
 
@@ -30,7 +34,7 @@ const Card = () => {
 
       {/* Challenge Title */}
       <h2 className="text-xl font-semibold mb-4">
-        "Rename Lagos based on its current vibe"
+        "{submission.game.title}"
       </h2>
 
       {/* Instructions */}
@@ -40,7 +44,7 @@ const Card = () => {
         </div>
         <div className="text-sm text-gray-400">
           🔹 Submitted answer:{" "}
-          <span className="font-bold text-[#ffd95a]">"Eko Hustle City"</span>
+          <span className="font-bold text-[#ffd95a]">"{submission.submittedAnswer}"</span>
         </div>
       </div>
 
@@ -48,14 +52,14 @@ const Card = () => {
       <div className="flex items-center justify-between text-xs text-[#cccccc] mb-4">
         <div className="flex items-center gap-1">
           <FaMoneyBill1Wave className="text-gray-400" />
-          <span>₦500</span>
+          <span>₦{submission.game.entryFee}</span>
           <span>•</span>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1">
             <MdOutlineCreditScore className="text-gray-400" />
-            <span>Prize Pool; 10,000</span>
+            <span>Prize Pool; {submission.game.reward}</span>
           </div>
 
           <div className="flex items-center gap-1">
@@ -76,6 +80,7 @@ const Card = () => {
       <SubmissionDetailsModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
+        submission={submission}
       />
     </div>
   );

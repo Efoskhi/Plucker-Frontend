@@ -1,7 +1,23 @@
 import React from "react";
+import CountdownTimer from "../CountdownTimer";
 
-const SubmissionDetailsModal = ({ isOpen, onClose }) => {
+const SubmissionDetailsModal = ({ isOpen, onClose, submission }) => {
   if (!isOpen) return null;
+
+  const date = new Date(submission.createdAt);
+
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
 
   return (
     <div className="fixed inset-0 z-50 flex  items-center justify-center bg-black bg-opacity-60">
@@ -14,29 +30,31 @@ const SubmissionDetailsModal = ({ isOpen, onClose }) => {
         </div>
 
         <h2 className="text-xl font-semibold">📝 Question</h2>
-        <p className="mb-4">“Rename Lagos based on its current vibe.”</p>
+        <p className="mb-4">“{submission.game.title}”</p>
 
         <p className="mb-2">
           📅 <strong>Submitted On:</strong>
           <br />
-          April 26, 2025 at 02:41 PM
+         {`${formattedDate} at ${formattedTime}`}
         </p>
         <p className="mb-2">
           ✍️ <strong>Your Answer:</strong>
           <br />
-          “Chaotic Hustletropolis”
+          “{submission.submittedAnswer}”
         </p>
         <p className="mb-2">
           💎 <strong>Game Type:</strong>
           <br />
-          Paid Challenge (₦500 seed — Payout: ₦10,000)
+          Paid Challenge (₦{submission.entryFee} seed — Payout: ₦{submission.reward})
         </p>
         <p className="mb-2">
           ✅ <strong>Status:</strong> Submitted & Locked ✅
         </p>
-        <p className="mb-2">
-          🕐 <strong>Time Left to Game End:</strong> 03h 12m remaining
-        </p>
+        {submission.game.isTournament && 
+          <p className="mb-2">
+            🕐 <strong>Time Left to Game End:</strong> <CountdownTimer endingAt={submission.game.endingAt} /> remaining
+          </p>
+        }
         <p className="mb-4">
           📩 <strong>Result Notification:</strong>
           <br />

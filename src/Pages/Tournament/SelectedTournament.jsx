@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaTrophy, FaMoneyBillWave, FaClock } from "react-icons/fa";
 import Dog1 from "../../assets/Dog1.png";
 
@@ -6,10 +6,48 @@ import Paint1 from "../../assets/Paint1.png";
 
 import Paint2 from "../../assets/Paint2.png";
 import Dog2 from "../../assets/Dog2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext";
+import Loading from "../../components/Loading";
+import CountdownTimer from "../../components/CountdownTimer";
+import useGamePlay from "../../hooks/useGamePlay";
 
 export default function SelectedTournament() {
   const [agree, setAgree] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { currentGameDetails, user, setCurrentGameDetails } = useAppContext();
+  const { handlePlayGame, setAnswer, answer } = useGamePlay();
+
+  const playGame = async () => {
+    try {
+      setIsLoading(true);
+      await handlePlayGame();
+      setCurrentGameDetails(prev => ({
+        ...prev,
+        hasPlayedGame: true,
+        submittedAnswer: answer,
+      }))
+      navigate('/SuccessfulSubmission');
+
+    } catch(error) {
+      // console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  React.useEffect(() => {
+    if (!currentGameDetails || !currentGameDetails.isTournament) {
+      navigate('/TournamentHub');
+    }
+  }, [currentGameDetails, navigate]);
+
+  if (!currentGameDetails) {
+    return <Loading/>;
+  }
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center p-6 relative">
@@ -47,24 +85,24 @@ export default function SelectedTournament() {
         {/* Tournament Title */}
         <div className="mb-4 text-center">
           <h2 className="text-lg font-semibold">
-            🎮 Tournament: Street Slang Showdown — Gen Z Edition
+            🎮 Tournament: {currentGameDetails.title}
           </h2>
         </div>
 
         {/* Game Info */}
         <div className="mb-6 text-center">
           <h3 className="text-md font-bold mb-2">
-            💡 Game: Street Slang Showdown
+            💡 {currentGameDetails.description}
           </h3>
           <div className="space-y-2 text-sm text-center text-[#988c8c]">
             <div className="flex items-center justify-center gap-2 text-center">
-              <FaMoneyBillWave className="text-green-400" /> Entry Fee: ₦300
+              <FaMoneyBillWave className="text-green-400" /> Entry Fee: ₦{currentGameDetails.entryFee}
             </div>
             <div className="flex items-center justify-center gap-2">
-              🥇 Prize Pool: ₦600
+              🥇 Prize Pool: ₦{currentGameDetails.reward}
             </div>
             <div className="flex items-center justify-center gap-2">
-              <FaClock className="text-purple-400" /> Ends In: 1 Day 19 Hours
+              <FaClock className="text-purple-400" /> Ends In: <CountdownTimer endingAt={currentGameDetails.endingAt} />
             </div>
           </div>
         </div>
@@ -81,6 +119,7 @@ export default function SelectedTournament() {
             className="w-full p-3 rounded-md bg-black border border-gray-700 text-sm"
             placeholder="Type your answer here..."
             rows="4"
+            onChange={e => setAnswer(e.target.value)}
           ></textarea>
         </div>
 
@@ -98,19 +137,23 @@ export default function SelectedTournament() {
 
           {/* Wallet Info */}
           <div className="flex items-center text-sm ">
-            <div>💳 Your Wallet Balance: ₦650</div>
+            <div>💳 Your Wallet Balance: ₦{user.accountBalance}</div>
           </div>
         </div>
         {/* Confirm Button */}
 
         <div className="inline-flex items-center gap-8 w-full">
-          <Link className="w-full" to="/SuccessfulSubmission">
-            <button className="w-full py-2 rounded-md text-black bg-[#00DAE4] hover:bg-cyan-700 font-semibold ">
-              ✅ Confirm & Submit
-            </button>{" "}
-          </Link>
+          <button 
+            className="w-full py-2 rounded-md text-black bg-[#00DAE4] hover:bg-cyan-700 font-semibold " 
+            onClick={playGame}
+          >
+            {isLoading ? <Loading/> : '✅ Confirm & Submit'}
+          </button>{" "}
 
-          <button className="w-full py-2 rounded-md text-white bg-transparent border hover:bg-cyan-700 font-semibold ">
+          <button 
+            onClick={() => navigate(-1)}
+            className="w-full py-2 rounded-md text-white bg-transparent border hover:bg-cyan-700 font-semibold "
+          >
             ❌ Cancel
           </button>
         </div>

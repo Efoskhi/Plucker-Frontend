@@ -4,8 +4,16 @@ import logo from "../../assets/Logo.png"; // Replace with your actual logo
 
 import MailBox from "../../assets/Mailbox.png"; // Replace with your actual logo
 import { Link } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext";
+import useAuth from "../../hooks/useAuth";
+import Loading from "../../components/Loading";
 
 const VerifyEmail = () => {
+
+  const { accountVerifyEmail } = useAppContext();
+
+  const { isLoading, handleResendVerificationToken } = useAuth();
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center text-white px-4 relative"
@@ -31,13 +39,16 @@ const VerifyEmail = () => {
             </span>{" "}
           </h1>
           <p className="text-gray-100 mt-2" style={{ fontFamily: "grotesk" }}>
-            We’ve sent a link to <strong>you@gmail.com</strong>
+            We’ve sent a link to <strong>{ accountVerifyEmail }</strong>
             <br />
             Once verified, you will unlock your level 1 badge. Let’s go! 🕹️
           </p>
         </div>
-        <button className="hover:bg-cyan-700 bg-[#00DAE4] text-black py-2 px-6 rounded-md font-medium  transition">
-          Resend Verification Link
+        <button 
+          className="hover:bg-cyan-700 bg-[#00DAE4] text-black py-2 px-6 rounded-md font-medium  transition"
+          onClick={handleResendVerificationToken}
+        >
+          {isLoading ? <Loading/> : 'Resend Verification Link'}
         </button>
       </div>
     </div>

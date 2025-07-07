@@ -13,15 +13,17 @@ import Pad2 from "../assets/Pad2.png"; // Replace with your actual logo
 import Pad1 from "../assets/Pad3.png"; // Replace with your actual logo
 
 import { FaFire, FaTrophy, FaCoins } from "react-icons/fa";
+import useDashboard from "../hooks/useDashboard";
+import Loading from "../components/Loading";
 
 const ExploreGames = () => {
-  const [activeTab, setActiveTab] = useState("trending");
+  const { games, isLoading, currentTab, setCurrentTab } = useDashboard();
 
-  const tabContent = {
-    trending: <TrendingGames />,
-    challenges: <NewChallenges />,
-    payouts: <HighestPayouts />,
-  };
+  // const tabContent = {
+  //   TRENDING: <TrendingGames games={games[currentTab]}/>,
+  //   NEW_CHALLANGES: <NewChallenges games={games.NEW_CHALLANGES}/>,
+  //   HIGHEST_PAYOUTS: <HighestPayouts games={games.HIGHEST_PAYOUTS}/>,
+  // };
   return (
     <div
       className="min-h-screen bg-cover bg-center  text-white px-2 relative z-0"
@@ -34,11 +36,11 @@ const ExploreGames = () => {
         <div className="flex">
           <button
             className={`px-4 py-3 flex items-center space-x-2 text-sm focus:outline-none ${
-              activeTab === "trending"
+              currentTab === "TRENDING"
                 ? "border-b-2 border-orange-500"
                 : "text-gray-400 hover:text-gray-200"
             }`}
-            onClick={() => setActiveTab("trending")}
+            onClick={() => setCurrentTab("TRENDING")}
           >
             <FaFire className="text-orange-500" />
             <span>Trending Games</span>
@@ -46,11 +48,11 @@ const ExploreGames = () => {
 
           <button
             className={`px-4 py-3 flex items-center space-x-2 text-sm focus:outline-none ${
-              activeTab === "challenges"
+              currentTab === "NEW_CHALLANGES"
                 ? "border-b-2 border-purple-500"
                 : "text-gray-400 hover:text-gray-200"
             }`}
-            onClick={() => setActiveTab("challenges")}
+            onClick={() => setCurrentTab("NEW_CHALLANGES")}
           >
             <span className="text-purple-500">
               <FaTrophy />
@@ -60,11 +62,11 @@ const ExploreGames = () => {
 
           <button
             className={`px-4 py-3 flex items-center space-x-2 text-sm focus:outline-none ${
-              activeTab === "payouts"
+              currentTab === "HIGHEST_PAYOUTS"
                 ? "border-b-2 border-yellow-500"
                 : "text-gray-400 hover:text-gray-200"
             }`}
-            onClick={() => setActiveTab("payouts")}
+            onClick={() => setCurrentTab("HIGHEST_PAYOUTS")}
           >
             <span className="text-yellow-500">
               <FaCoins />
@@ -73,7 +75,13 @@ const ExploreGames = () => {
           </button>
         </div>
         <div className=" overflow-y-auto overscroll-y-auto min-h-[70vh]">
-          {tabContent[activeTab]}
+          {isLoading ? (
+            <Loading/>
+          ) : (
+            <>
+              <TrendingGames games={games[currentTab]}/>
+            </>
+          )}
         </div>
       </div>
     </div>
