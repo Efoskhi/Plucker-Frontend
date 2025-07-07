@@ -6,4 +6,5 @@ export interface User {
     role: string;
     level: number;
     profilePhoto: string;
+    accountBalance: number;
 }

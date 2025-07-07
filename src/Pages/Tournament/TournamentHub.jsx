@@ -19,6 +19,8 @@ import Challenge from "../../components/Leaderboard/Challenge";
 import Card from "../../components/Tournament/Card";
 import AllTournaments from "../../components/Tournament/AllTournaments";
 import PastTournaments from "../../components/Tournament/PastTournaments";
+import useTournaments from "../../hooks/useTournaments";
+import Loading from "../../components/Loading";
 
 const tabs = [
   { id: "all", label: "All Tournaments", icon: "🌍" },
@@ -31,6 +33,9 @@ const tabComponents = {
 
 const TournamentHub = () => {
   const [activeTab, setActiveTab] = useState("all");
+
+  const { isLoading, tournaments } = useTournaments();
+
   return (
     <div
       className="min-h-screen bg-cover bg-center  text-white  relative z-0"
@@ -75,19 +80,23 @@ const TournamentHub = () => {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3 grid-cols-1 px-4 lg:max-w-6xl  items-center justify-center mx-auto">
-        <div className=" lg:my-12 lg:mt-12">
-          {/* Card */}
-          <Card />
-        </div>
+      {isLoading && <Loading/>}
 
-        <div className=" lg:mb-12">
+      <div className="grid gap-4 lg:grid-cols-3 grid-cols-1 px-4 lg:max-w-6xl  items-center justify-center mx-auto">
+        {tournaments.map((item, key) => (
+          <div className=" lg:my-12 lg:mt-12" key={key}>
+            {/* Card */}
+            <Card tournament={item}/>
+          </div>
+        ))}
+
+        {/* <div className=" lg:mb-12">
           {" "}
           <Card />
         </div>
         <div className=" lg:my-12 lg:mt-12">
           <Card />
-        </div>
+        </div> */}
       </div>
 
       {/* Tabs */}

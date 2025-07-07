@@ -14,12 +14,14 @@ const useGamePlay = () => {
         try {
             setStep('loading');
 
-            const { status } = await axiosClient.post('/game/play', {
+            const { status, data: response } = await axiosClient.post('/game/play', {
                 gameID: currentGameDetails!.id,
                 submittedAnswer: answer,
             });
 
             setStep('success');
+
+            return response;
 
         } catch(error) {
             let message = 'Something went wrong playing game, please try again';
@@ -28,13 +30,35 @@ const useGamePlay = () => {
             }
             setStep('form');
             toast.error(message);
+            throw error;
         }
     }
 
+    const getPlayedGame = async () => {
+        try {
+            const { data: response } = await axiosClient.get('/game/played');
+
+            return response;
+
+        } catch(error) {
+            let message = 'Something went wrong getting submissions, please try again';
+            if(error instanceof CustomError) {
+                message = error.message;
+            }
+            toast.error(message);
+        }
+    }
+
+    React.useEffect(() => {
+        console.log({answer})
+    }, [])
+
     return {
         step,
+        answer,
         handlePlayGame,
         setAnswer,
+        getPlayedGame,
     }
 }
 

@@ -2,12 +2,14 @@ import React from 'react';
 import axiosClient from '../utils/axiosClient';
 import toast from 'react-hot-toast';
 
-type GameTypes = 'TRENDING'
+type GameTypes = 'TRENDING' | 'NEW_CHALLANGES' | 'HIGHEST_PAYOUTS' | 'TOURNAMENT';
 
 const useDashboard = () => {
     const [ isLoading, setIsLoading ] = React.useState(false);
     const [ games, setGames ] = React.useState({
-        TRENDING: []
+        TRENDING: [],
+        NEW_CHALLANGES: [],
+        HIGHEST_PAYOUTS: [],
     })
     const [ currentTab, setCurrentTab ] = React.useState<GameTypes>('TRENDING');
 
@@ -32,11 +34,13 @@ const useDashboard = () => {
 
     React.useEffect(() => {
         getGames(currentTab);
-    }, [])
+    }, [currentTab])
 
     return {
         isLoading,
         games,
+        currentTab,
+        setCurrentTab,
     }
 }
 

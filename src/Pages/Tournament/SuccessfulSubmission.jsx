@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaTrophy, FaMoneyBillWave, FaClock, FaCalendar } from "react-icons/fa";
 import Dog1 from "../../assets/Dog1.png";
 
@@ -10,10 +10,32 @@ import Dog2 from "../../assets/Dog2.png";
 import Smile from "../../assets/Smile.png";
 
 import Success from "../../assets/Success.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext";
+import Loading from "../../components/Loading";
 
 export default function SuccessfulSubmission() {
   const [agree, setAgree] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { currentGameDetails } = useAppContext();
+
+  React.useEffect(() => {
+    if (!currentGameDetails || !currentGameDetails.isTournament || !currentGameDetails.hasPlayedGame) {
+      navigate('/TournamentHub');
+    }
+  }, [currentGameDetails, navigate]);
+
+  if (!currentGameDetails) {
+    return <Loading/>;
+  }
+
+  const formattedDate = new Date(currentGameDetails.endingAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center p-6 relative">
@@ -68,24 +90,22 @@ export default function SuccessfulSubmission() {
           </div>
           <div className="space-y-2 text-sm text-center text-white">
             <h2 className="text-lg font-semibold">
-              💡 Entry: "ShaMaPa - Sharp Man Pass All"
+              💡 Entry: "{currentGameDetails.submittedAnswer}"
             </h2>
             <div className="inline-flex items-center gap-4 text-[#988c8c]">
               <div className="flex items-center justify-center gap-2 text-center">
-                <FaMoneyBillWave className="text-green-400" /> Seed: ₦500
+                <FaMoneyBillWave className="text-green-400" /> Seed: ₦{currentGameDetails.entryFee}
               </div>
               <div className="flex items-center justify-center gap-2">
-                🥇 Potential Payout: ₦10,000
+                🥇 Potential Payout: ₦{currentGameDetails.reward}
               </div>
             </div>
 
             <div className="flex items-center justify-center gap-2">
-              <FaCalendar className="text-purple-400" /> Tournament: Street
-              Slang Showdown - Gen Z Edition
+              <FaCalendar className="text-purple-400" /> Tournament: {currentGameDetails.title}
             </div>
             <div className="flex items-center justify-center gap-2">
-              <FaClock className="text-purple-400" /> Results Announced: April
-              15, 2025
+              <FaClock className="text-purple-400" /> Results Announced: {formattedDate}
             </div>
           </div>
         </div>

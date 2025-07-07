@@ -15,8 +15,28 @@ import Level from "../../assets/Level.png"; // Replace with your actual logo
 
 import Smile from "../../assets/Smile.png";
 import Card from "../../components/Submission/Card";
+import useGamePlay from "../../hooks/useGamePlay";
+import Loading from "../../components/Loading";
+import EmptySubmissions from "./EmptySubmissions";
 
 const Submissions = () => {
+  const [ isLoading, setIsLoading ] = React.useState(true);
+  const [ submissions, setSubmissions ] = React.useState([]);
+  const { getPlayedGame } = useGamePlay();
+
+  React.useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      const games = await getPlayedGame();
+      setSubmissions(games.data);
+      setIsLoading(false);
+    })()
+  }, [])
+
+  if(!isLoading && !submissions.length) {
+    return <EmptySubmissions/>
+  }
+
   return (
     <div
       className="min-h-screen bg-cover bg-center text-white relative z-0"
@@ -50,9 +70,12 @@ const Submissions = () => {
             </div>
           </div>
 
+          {isLoading && <Loading/>}
+
           <div className="grid lg:grid-cols-3 grid-cols-1 pt-12 gap-4">
-            <Card />
-            <Card /> <Card />
+            {submissions.map((item, key) => (
+              <Card key={key} submission={item}/>
+            ))}
           </div>
         </div>
       </div>

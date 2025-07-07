@@ -21,7 +21,7 @@ interface AppContextProviderProps {
 const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
     const [ user, setUser ] = React.useState<User | null>(null);
     const [ isLoading, setLoading ] = React.useState(true);
-    const [ accountVerifyEmail, setAccountVerifyEmail ] = React.useState('efozkhi@gmail.com');
+    const [ accountVerifyEmail, setAccountVerifyEmail ] = React.useState('');
     const [ currentGameDetails, setCurrentGameDetails ] = React.useState<null | {}>(null);
 
     const navigate = useNavigate();

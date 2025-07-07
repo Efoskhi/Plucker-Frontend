@@ -1,0 +1,44 @@
+import React from "react";
+import toast from "react-hot-toast";
+import CustomError from "../types/customError";
+import axiosClient from "../utils/axiosClient";
+
+const useLeaderboard = () => {
+    const [ isLoading, setIsLoading ] = React.useState(true);
+    const [ leaderboard, setLeaderboard ] = React.useState([]);
+    const [ filter, setFilter ] = React.useState({
+        dateFrom: '',
+        dateTo: '',
+        pageSize: 10,
+    })
+
+    const getLeaderboard = async () => {
+        try {
+            setIsLoading(true);
+
+            const { data: response } = await axiosClient.get('/leaderboard');
+
+            setLeaderboard(response.data);
+
+        } catch(error) {
+            let message = 'Something went wrong getting leaderboard, please try again';
+            if(error instanceof CustomError) {
+                message = error.message;
+            }
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    React.useEffect(() => {
+        getLeaderboard();
+    }, [])
+
+    return {
+        isLoading,
+        leaderboard,
+    }
+}
+
+export default useLeaderboard;

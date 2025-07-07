@@ -25,9 +25,13 @@ const TrendingGames = ({ games }) => {
         <div key={key} className="bg-[#1c1c1c] rounded-lg overflow-hidden p-4 text-white">
           <div className="flex items-center gap-2 mb-4">
             <div className="bg-black px-3 py-0.5 text-xs rounded flex items-center gap-1">
-              <span>LIVE</span>
-              <span className="text-gray-400">•</span>
-              <span>Tournament</span>
+              <span>{ item.status }</span>
+              {item.isTournament &&
+                <>
+                  <span className="text-gray-400">•</span>
+                  <span>Tournament</span>
+                </>
+              }
             </div>
           </div>
 
@@ -65,8 +69,12 @@ const TrendingGames = ({ games }) => {
                 <MdOutlineCreditScore className="text-gray-400" />
                 <span>{item.reward}</span>
               </div>
-              End:
-              <CountdownTimer endingAt={item.endingAt} />
+              {item.isTournament && 
+                <>
+                  End:
+                  <CountdownTimer endingAt={item.endingAt} />
+                </>
+              }
             </div>
           </div>
 

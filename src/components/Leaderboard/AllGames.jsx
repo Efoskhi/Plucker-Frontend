@@ -73,7 +73,16 @@ const leaderboard = [
   },
 ];
 
-const AllGames = () => {
+const getColor = (level) => {
+  const colors = {
+    1: 'bg-green-200',
+    2: 'bg-purple-300',
+    3: 'bg-green-400',
+  };
+  return colors[level] || 'bg-purple-400';
+}
+
+const AllGames = ({ leaderboard }) => {
   return (
     <div className="overflow-x-auto whitespace-nowrap  text-white bg-[#0F0F0F] text-sm border border-cyan-400  shadow-2xl  rounded-md shadow-[#00DAE4]">
       <table className="w-full min-w-[700px] border border-white/20 rounded-lg overflow-hidden">
@@ -94,17 +103,17 @@ const AllGames = () => {
               className="border-t border-white/10 hover:bg-white/5 transition"
             >
               <td className="px-4 py-3 font-semibold">{i + 1}</td>
-              <td className="px-4 py-3">{user.player}</td>
+              <td className="px-4 py-3">@{user.user.username}</td>
               <td className="px-4 py-3">
                 <span
-                  className={`text-xs px-2 py-1 rounded-full text-black font-semibold ${user.color}`}
+                  className={`text-xs px-2 py-1 rounded-full text-black font-semibold ${getColor(user.user.level)}`}
                 >
-                  {user.level}
+                  Level {user.user.level}
                 </span>
               </td>
-              <td className="px-4 py-3">{user.winnings}</td>
-              <td className="px-4 py-3">{user.streak}</td>
-              <td className="px-4 py-3">{user.badge}</td>
+              <td className="px-4 py-3">₦{user.totalAmountWon}</td>
+              <td className="px-4 py-3">{user.totalWins} Win</td>
+              <td className="px-4 py-3">🚀 Rising Talent</td>
             </tr>
           ))}
         </tbody>

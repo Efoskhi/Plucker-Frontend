@@ -27,9 +27,11 @@ const GameDetails = () => {
 
   const navigate = useNavigate();
 
-  if(!currentGameDetails) {
-    navigate('/Explore');
-  }
+  React.useEffect(() => {
+    if (!currentGameDetails) {
+      navigate('/Explore');
+    }
+  }, [currentGameDetails, navigate]);
 
   return (
     <div
