@@ -61,7 +61,7 @@ function App() {
 
               <Route path="/MyWallet" element={<MyWallet />} />
 
-              <Route path="/UpgradeAccount" element={<UpgrdeAccount />} />
+              <Route path="/UpgradeAccount/:id" element={<UpgrdeAccount />} />
 
               <Route path="/UpgradeSuccessful" element={<UpgradeSuccessful />} />
               <Route path="/Profile" element={<Profile />} />

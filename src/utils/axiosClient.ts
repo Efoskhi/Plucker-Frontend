@@ -31,11 +31,16 @@ axiosClient.interceptors.response.use(
         if (error.response?.status === 401) {
             console.warn("Unauthorized. Redirecting to login...");
             // Optionally redirect or logout
+            if (location.pathname !== '/') {
+                location.href = '/';
+            }
+
+            return Promise.reject(new CustomError('Unauthorized'));;
         }
-        if (error.response?.data?.message) {
+        if (error?.response?.data?.message) {
             return Promise.reject(new CustomError(error.response.data.message));
         } else {
-            return Promise.reject(new Error(error.response?.data?.message ?? error.message));
+            return Promise.reject(new Error(error?.response?.data?.message ?? error.message));
         }
     }
 );

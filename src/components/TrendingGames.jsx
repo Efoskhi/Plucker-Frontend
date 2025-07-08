@@ -69,12 +69,12 @@ const TrendingGames = ({ games }) => {
                 <MdOutlineCreditScore className="text-gray-400" />
                 <span>{item.reward}</span>
               </div>
-              {item.isTournament && 
+              {/* {item.isTournament && 
                 <>
                   End:
                   <CountdownTimer endingAt={item.endingAt} />
                 </>
-              }
+              } */}
             </div>
           </div>
 

@@ -80,10 +80,10 @@ const Card = ({ tournament }) => {
             <span>{tournament.reward}</span>
           </div>
 
-          <div className="flex items-center gap-1">
+          {/* <div className="flex items-center gap-1">
             <BsHourglassSplit className="text-gray-400" />
             <CountdownTimer endingAt={tournament.endingAt} />
-          </div>
+          </div> */}
         </div>
       </div>
 

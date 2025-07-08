@@ -31,11 +31,11 @@ export default function SuccessfulSubmission() {
     return <Loading/>;
   }
 
-  const formattedDate = new Date(currentGameDetails.endingAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  // const formattedDate = new Date(currentGameDetails.endingAt).toLocaleDateString("en-US", {
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric",
+  // });
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center p-6 relative">
@@ -104,9 +104,9 @@ export default function SuccessfulSubmission() {
             <div className="flex items-center justify-center gap-2">
               <FaCalendar className="text-purple-400" /> Tournament: {currentGameDetails.title}
             </div>
-            <div className="flex items-center justify-center gap-2">
+            {/* <div className="flex items-center justify-center gap-2">
               <FaClock className="text-purple-400" /> Results Announced: {formattedDate}
-            </div>
+            </div> */}
           </div>
         </div>
 

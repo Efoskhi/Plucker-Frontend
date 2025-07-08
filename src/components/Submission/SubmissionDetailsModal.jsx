@@ -50,11 +50,11 @@ const SubmissionDetailsModal = ({ isOpen, onClose, submission }) => {
         <p className="mb-2">
           ✅ <strong>Status:</strong> Submitted & Locked ✅
         </p>
-        {submission.game.isTournament && 
+        {/* {submission.game.isTournament && 
           <p className="mb-2">
             🕐 <strong>Time Left to Game End:</strong> <CountdownTimer endingAt={submission.game.endingAt} /> remaining
           </p>
-        }
+        } */}
         <p className="mb-4">
           📩 <strong>Result Notification:</strong>
           <br />
