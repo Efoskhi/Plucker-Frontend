@@ -95,11 +95,11 @@ const GameDetails = () => {
                 <span>{currentGameDetails.reward}</span>
               </div>
 
-              <div className="flex items-center gap-1">
+              {/* <div className="flex items-center gap-1">
                 <BsHourglassSplit className="text-gray-400" />
                 End:
                 <CountdownTimer endingAt={currentGameDetails.endingAt} />
-              </div>
+              </div> */}
             </div>
           </div>
 

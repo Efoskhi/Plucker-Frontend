@@ -101,9 +101,9 @@ export default function SelectedTournament() {
             <div className="flex items-center justify-center gap-2">
               🥇 Prize Pool: ₦{currentGameDetails.reward}
             </div>
-            <div className="flex items-center justify-center gap-2">
+            {/* <div className="flex items-center justify-center gap-2">
               <FaClock className="text-purple-400" /> Ends In: <CountdownTimer endingAt={currentGameDetails.endingAt} />
-            </div>
+            </div> */}
           </div>
         </div>
 

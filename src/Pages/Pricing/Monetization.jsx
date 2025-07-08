@@ -17,8 +17,13 @@ import HowItWorks from "../../components/Pricing/HowItWorks";
 import FaqSection from "../../components/Pricing/FAQ";
 import PromoBanner from "../../components/Pricing/PromoBanner";
 import { Link } from "react-router-dom";
+import usePlan from "../../hooks/usePlan";
+import { numberFormat } from "../../utils";
 
 const Pricing = () => {
+
+  const { isLoading, plans } = usePlan();
+
   return (
     <div
       className="min-h-screen bg-cover bg-center  text-white  relative z-0"
@@ -58,47 +63,33 @@ const Pricing = () => {
 
       <div className="min-h-screen lg:max-w-4xl mx-auto text-white flex flex-col items-center py-6 px-2 space-y-8">
         {/* Plans */}
-        <div className="flex flex-col md:flex-row  w-full gap-6">
-          {/* Monthly Plan */}
-          <div className="bg-[#0D0D0D] p-6 rounded-lg w-full inline-flex justify-between items-center shadow-lg  ">
-            <div className="">
-              <div className="text-sm text-gray-400 mb-2 border-b">
-                Verified Member 💎
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {plans.map((item, key) => (
+            <div
+              key={key}
+              className="bg-[#0D0D0D] p-6 rounded-lg flex justify-between items-center shadow-lg"
+            >
+              <div>
+                <div className="text-sm text-gray-400 mb-2 border-b">
+                  {item.planName} 💎
+                </div>
+                <div className="text-2xl font-bold mb-4">
+                  ₦{numberFormat(item.amountPerMonth)}{' '}
+                  <span className="text-sm font-normal">/ month</span>
+                </div>
               </div>
-              <div className="text-2xl font-bold mb-4">
-                ₦1,000 <span className="text-sm font-normal">/ month</span>
-              </div>
-            </div>
-            <Link to="/UpgradeAccount">
-              <button className="bg-[#00ff85] hover:bg-green-500 text-black font-bold py-2 px-6 rounded-md">
-                Upgrade Now
-              </button>
-            </Link>
-          </div>
 
-          {/* Monthly Plan */}
-          <div className="bg-[#0D0D0D] p-6 rounded-lg w-full flex  justify-between items-center shadow-lg  ">
-            <div className="">
-              <div className="text-sm text-gray-400 mb-2 border-b">
-                Verified Member 💎
-              </div>
-              <div className="text-2xl font-bold mb-4">
-                ₦10,000 <span className="text-sm font-normal">/ month</span>
+              <div className="flex flex-col gap-2 items-end">
+                <Link to={`/UpgradeAccount/${item.id}`}>
+                  <button className="bg-[#00ff85] hover:bg-green-500 text-black font-bold py-2 px-6 rounded-md">
+                    Upgrade Now
+                  </button>
+                </Link>
               </div>
             </div>
-
-            <div className="flex flex-col gap-2 items-end">
-              <Link to="/UpgradeAccount">
-                <button className="bg-[#00ff85] hover:bg-green-500 text-black font-bold py-2 px-6 rounded-md">
-                  Upgrade Now
-                </button>
-              </Link>
-              <button className="border text-[#00ead4] hover:text-white font-bold py-2 px-6 rounded-md w-full">
-                Save N2000
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
+
 
         {/* Benefits */}
         <div className="bg-[#0D0D0D] p-6 rounded-lg w-full max-w-4xl shadow-lg shadow-cyan-500 border border-cyan-400">
