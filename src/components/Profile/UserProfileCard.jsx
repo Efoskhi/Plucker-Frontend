@@ -1,6 +1,7 @@
 import React from "react";
 import Profile from "../../assets/Profile.webp";
 import { useAppContext } from "../../context/AppContext";
+import { Link } from "react-router-dom";
 
 export default function UserProfileCard() {
   const { user } = useAppContext();
@@ -40,12 +41,15 @@ export default function UserProfileCard() {
               <span className={`text-${user.planID ? 'green' : 'red'}-500 text-lg`}>{user.planID ? '✓' : 'X' }</span>
             </div>
 
-            {/* <div className="mt-2">
-              <button className="flex items-center lg:text-sm text-[10px] border bg-[#2C2C2C] border-gray-600 rounded px-3 py-1 hover:bg-gray-800 transition-colors">
-                <span>Edit Profile Settings</span>
-                <span className="ml-1">🔧</span>
-              </button>
-            </div> */}
+            <div className="mt-2">
+              <Link to="/MyWallet">
+                <button className="flex items-center lg:text-sm text-[10px] border bg-[#2C2C2C] border-gray-600 rounded px-3 py-1 hover:bg-gray-800 transition-colors">
+                  <span>Wallet</span>
+                  <span className="ml-1">🤑</span>
+                </button>
+              </Link>
+              
+            </div>
           </div>
         </div>
       </div>

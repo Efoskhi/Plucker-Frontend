@@ -28,7 +28,7 @@ const GameDetails = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!currentGameDetails) {
+    if (!currentGameDetails.title) {
       navigate('/Explore');
     }
   }, [currentGameDetails, navigate]);
@@ -54,6 +54,11 @@ const GameDetails = () => {
               <span className="text-gray-400">•</span>
               <span>Tournament</span>
             </div>
+            {!currentGameDetails.entryFee && (
+              <span className="bg-green-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase">
+                Free
+              </span>
+            )}
           </div>
 
           {/* Challenge Icon */}
@@ -78,16 +83,20 @@ const GameDetails = () => {
 
           {/* Challenge Details */}
           <div className="flex items-center justify-start gap-8 text-1xl  text-[#cccccc] mb-4">
-            <div className="flex items-center gap-1">
-              <FaMoneyBill1Wave className="text-gray-400" />
-              <span>₦{currentGameDetails.entryFee}</span>
-              {currentGameDetails.hasPlayedGame && 
-                <>
-                  <span>•</span>
-                  <span>Paid</span>
-                </>
-              }
-            </div>
+            {!!currentGameDetails.entryFee ? (
+              <div className="flex items-center gap-1">
+                <FaMoneyBill1Wave className="text-gray-400" />
+                <span>₦{currentGameDetails.entryFee}</span>
+                {currentGameDetails.hasPlayedGame && 
+                  <>
+                    <span>•</span>
+                    <span>Paid</span>
+                  </>
+                }
+              </div>
+            ) : (
+              <p>Free</p>
+            )}
 
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
