@@ -16,13 +16,23 @@ import Level from "../../assets/Level.png"; // Replace with your actual logo
 import HowItWorks from "../../components/Pricing/HowItWorks";
 import FaqSection from "../../components/Pricing/FAQ";
 import PromoBanner from "../../components/Pricing/PromoBanner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import usePlan from "../../hooks/usePlan";
 import { numberFormat } from "../../utils";
+import Loading from "../../components/Loading";
+import { useAppContext } from "../../context/AppContext";
 
 const Pricing = () => {
 
   const { isLoading, plans } = usePlan();
+
+  const { user } = useAppContext();
+    
+  const navigate = useNavigate();
+
+  if(user.planID) {
+    navigate('/Explore');
+  }
 
   return (
     <div
@@ -54,12 +64,14 @@ const Pricing = () => {
                 <span className="text-white">🤑 Unlock Unlimited Pluckin'</span>{" "}
               </h1>
               <p className="text-sm text-gray-400 mt-2">
-                💎 Become a Verified Member for just ₦1,000/month!
+                {/* 💎 Become a Verified Member for just ₦1,000/month! */}
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      {isLoading && <Loading/>}
 
       <div className="min-h-screen lg:max-w-4xl mx-auto text-white flex flex-col items-center py-6 px-2 space-y-8">
         {/* Plans */}

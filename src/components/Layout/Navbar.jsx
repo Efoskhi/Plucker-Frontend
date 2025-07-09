@@ -54,11 +54,13 @@ const Navbar = () => {
           label="Tournament"
           to="/TournamentHub"
         />
-        <NavItem
-          icon={<img src={Dollar} className="h-8" />}
-          label="Pricing"
-          to="/Pricing"
-        />
+        {!user.planID && 
+          <NavItem
+            icon={<img src={Dollar} className="h-8" />}
+            label="Pricing"
+            to="/Pricing"
+          />
+        }
       </div>
 
       {/* Right Side - Profile */}
