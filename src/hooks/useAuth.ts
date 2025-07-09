@@ -112,9 +112,12 @@ const useAuth = () => {
             if(status !== 200 && status !== 201) {
                 throw new CustomError(response.message);
             }
-            
-            handleSetUser(response.data)
+
             localStorage.setItem("authToken", response.data.access_token);
+
+            const { data: userData } = await axiosClient.get('user');
+            
+            handleSetUser(userData.data)
 
             navigate('/Explore');
 
