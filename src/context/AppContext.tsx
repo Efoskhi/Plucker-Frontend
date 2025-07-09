@@ -64,10 +64,14 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
 
     const init = async () => {
          try {
-            const { status, data: response } = await axiosClient.get('user');
-            if(status === 200) {
-                handleSetUser(response.data)
+            const authToken = localStorage.getItem('authToken');
+            if(authToken) {
+                const { status, data: response } = await axiosClient.get('user');
+                if(status === 200) {
+                    handleSetUser(response.data)
+                }
             }
+           
         } catch(error) {
 
         }
