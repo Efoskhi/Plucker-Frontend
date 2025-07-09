@@ -6,7 +6,7 @@ import Logo from "../../assets/Logo.png";
 
 import Google from "../../assets/Google.png";
 import { CiMail } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
 
@@ -18,6 +18,9 @@ const Login = () => {
   };
 
   const { isLoading, inputs, handleInput, handleLogin, handleGoogleLogin } = useAuth();
+
+  const [searchParams] = useSearchParams();
+  const error = searchParams.get('error');
 
   return (
     <div className="w-full flex h-screen bg-black">
@@ -47,6 +50,13 @@ const Login = () => {
               <img src={Google} alt="Google" className="h-5 w-5" />
               <span>Log in with Google</span>
             </button>
+
+           {error && (
+              <div className="bg-red-100 text-red-700 border border-red-400 px-4 py-3 rounded-md text-sm text-center">
+                {error}
+              </div>
+            )}
+
 
             <div className="flex items-center justify-center text-[#2C2C2C]">
               <hr className="flex-grow border-[#2C2C2C]" />

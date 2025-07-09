@@ -3,16 +3,18 @@ import axiosClient from "../utils/axiosClient";
 import toast from "react-hot-toast";
 import { SubscriptionPlan } from "../types/plan.type";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 let fetchedPlans: SubscriptionPlan[] | null= null 
 
 const usePlan = () => {
     const [ plans, setPlans ] = React.useState<SubscriptionPlan[]>([]);
-    const [ plan, setPlan ] = React.useState<SubscriptionPlan | {}>({});
+    const [ plan, setPlan ] = React.useState<SubscriptionPlan>({} as SubscriptionPlan);
     const [ isLoading, setIsLoading ] = React.useState(true);
     const [ isSaving, setIsSaving ] = React.useState(false);
 
     const { id } = useParams();
+    const { user, handleSetUser } = useAppContext();
     const navigate = useNavigate();
 
     const getPlans = async () => {
@@ -62,9 +64,17 @@ const usePlan = () => {
         try {
             setIsSaving(true);
 
+            if (!id) throw new Error('Plan ID is required');
+
             await axiosClient.post(`/plan/subscribe/${id}`);
 
-            navigate('/UpgradeSuccessful')
+            handleSetUser({
+                ...user!,
+                planID: id,
+                username: plan.features?.getVerifiedBadge ? user!.username.replace("plucker_", "") : user!.username,
+
+            })
+            navigate('/UpgradeSuccessful');
 
         } catch(error) {
            toast.error(error.message);

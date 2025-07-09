@@ -7,4 +7,6 @@ export interface User {
     level: number;
     profilePhoto: string;
     accountBalance: number;
+    planID: string;
+    hasSetPassword: boolean;
 }

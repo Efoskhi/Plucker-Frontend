@@ -20,9 +20,18 @@ import Bottle from "../../assets/Bottle.png";
 
 import Smile from "../../assets/Smile.png";
 import Card from "../../components/Submission/Card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext";
 
 const UpgrdeSuccessful = () => {
+  const { user } = useAppContext();
+  
+  const navigate = useNavigate();
+
+  if(user.planID) {
+    navigate('/Explore');
+  }
+
   return (
     <div
       className="min-h-screen bg-cover bg-center text-white relative z-0"

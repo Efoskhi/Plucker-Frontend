@@ -47,7 +47,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     const handleLogout = () => {
         setUser(null);
         removePersistentStorage("user");
-        navigate("/signin");
+        navigate("/");
     }
 
     const contextValue: AppContextType = {

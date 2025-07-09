@@ -20,7 +20,7 @@ import Bottle from "../../assets/Bottle.png";
 
 import Smile from "../../assets/Smile.png";
 import Card from "../../components/Submission/Card";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import usePlan from "../../hooks/usePlan";
 import { numberFormat } from "../../utils";
 import Loading from "../../components/Loading";
@@ -30,6 +30,12 @@ const UpgrdeAccount = () => {
 
   const { plan, isLoading, isSaving, handleSubscribe } = usePlan();
   const { user } = useAppContext();
+
+  const navigate = useNavigate();
+
+  if(user.planID) {
+    navigate('/Explore');
+  }
 
   return (
     <div

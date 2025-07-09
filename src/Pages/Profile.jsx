@@ -22,8 +22,11 @@ import UserProfileCard from "../components/Profile/UserProfileCard";
 import Activity from "../components/Profile/Activity";
 import AccountSettings from "../components/Profile/AccountSettings";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 const Profile = () => {
+  const { user } = useAppContext();
+
   return (
     <div
       className="min-h-screen bg-cover bg-center  text-white  relative z-0"
@@ -51,19 +54,21 @@ const Profile = () => {
             <div>
               <h1 className="text-3xl md:text-4xl font-semibold inline-flex items-center">
                 <img src={Face} className="h-8" />{" "}
-                <span className="text-white">Hello, Osato</span>{" "}
+                <span className="text-white">Hello, { user.fullname }</span>{" "}
               </h1>
             </div>
 
             <div className="flex space-x-2">
-              <Link to="/UpgradeAccount">
-                <button className="flex items-center px-4 py-2 bg-[#00FF85] text-white rounded-md shadow hover:bg-green-600 transition-colors">
-                  <span className="mr-2">💎</span>
-                  <span className="font-medium lg:text-base text-[10px]">
-                    Upgrade to Verified
-                  </span>
-                </button>
-              </Link>
+              {!user.planID && 
+                <Link to="/Pricing">
+                  <button className="flex items-center px-4 py-2 bg-[#00FF85] text-white rounded-md shadow hover:bg-green-600 transition-colors">
+                    <span className="mr-2">💎</span>
+                    <span className="font-medium lg:text-base text-[10px]">
+                      Upgrade to Verified
+                    </span>
+                  </button>
+                </Link>
+              }
               <Link to="/Submissions">
                 <button className="flex items-center px-4 py-2 bg-[#FFD95A] text-gray-800 rounded-md shadow hover:bg-yellow-400 transition-colors">
                   <span className="mr-2">📋</span>
