@@ -28,9 +28,9 @@ const UpgrdeSuccessful = () => {
   
   const navigate = useNavigate();
 
-  if(user.planID) {
-    navigate('/Explore');
-  }
+  // if(user.planID) {
+  //   navigate('/Explore');
+  // }
 
   return (
     <div

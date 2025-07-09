@@ -1,8 +1,16 @@
 import React, { useState } from "react";
+import useWallet from "../../hooks/useWallet";
+import Loading from "../Loading";
 
 export default function TopUpWallet() {
-  const [amount, setAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("bank");
+  const {
+    isLoading,
+    paymentMethod,
+    amount,
+    setAmount,
+    handleGeneratePaymentLink,
+    setPaymentMethod,
+  } = useWallet();
 
   return (
     <div className="max-w-4xl mx-auto mt-10 text-white font-sans space-y-6">
@@ -18,7 +26,7 @@ export default function TopUpWallet() {
           <input
             type="number"
             min="100"
-            placeholder="____"
+            placeholder="___________"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className="bg-[#1A1A1A] border-none outline-none text-white placeholder-gray-500 w-full"
@@ -34,10 +42,11 @@ export default function TopUpWallet() {
         </label>
         <div className="space-y-3">
           {[
-            { id: "bank", label: "Bank Transfer" },
-            { id: "card", label: "Debit Card (Visa/Mastercard/Verve)" },
-            { id: "ussd", label: "USSD (Mobile Banking)" },
-            { id: "paystack", label: "Paystack / Flutterwave (Recommended)" },
+            // { id: "bank", label: "Bank Transfer" },
+            // { id: "card", label: "Debit Card (Visa/Mastercard/Verve)" },
+            // { id: "ussd", label: "USSD (Mobile Banking)" },
+            { id: "paystack", label: "Paystack" },
+            { id: "fultterwave", label: "Flutterwave" },
           ].map((method) => (
             <label
               key={method.id}
@@ -59,8 +68,8 @@ export default function TopUpWallet() {
 
       {/* Action Buttons */}
       <div className="flex space-x-4">
-        <button className="flex-1 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded-md">
-          🏦 Proceed to Pay
+        <button onClick={handleGeneratePaymentLink} className="flex-1 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded-md">
+          {isLoading ? <Loading/> : '🏦 Proceed to Pay'}
         </button>
         <button className="flex-1 border border-white text-white hover:bg-red-600 hover:text-white font-semibold py-2 rounded-md">
           ❌ Cancel Top-Up

@@ -28,6 +28,7 @@ import UpgradeSuccessful from "./Pages/WalletFunds/UpgradeSuccessful";
 import SelectedTournament from "./Pages/Tournament/SelectedTournament";
 import AppContextProvider from "./context/AppContext";
 import ValidateEmail from "./Pages/Auth/ValidateEmail";
+import PaymentStatus from "./Pages/WalletFunds/PaymentStatus";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
               <Route path="/Pricing" element={<Pricing />} />
 
               <Route path="/MyWallet" element={<MyWallet />} />
+              <Route path="/PaymentStatus" element={<PaymentStatus />} />
 
               <Route path="/UpgradeAccount/:id" element={<UpgrdeAccount />} />
 

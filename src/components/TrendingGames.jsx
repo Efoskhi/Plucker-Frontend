@@ -33,6 +33,11 @@ const TrendingGames = ({ games }) => {
                 </>
               }
             </div>
+            {!item.entryFee && (
+              <span className="bg-green-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase">
+                Free
+              </span>
+            )}
           </div>
 
           <div className="mb-3">
@@ -53,16 +58,20 @@ const TrendingGames = ({ games }) => {
           </div>
 
           <div className="flex items-center justify-between text-xs text-[#cccccc] mb-4">
-            <div className="flex items-center gap-1">
-              <FaMoneyBill1Wave className="text-gray-400" />
-              <span>₦{item.entryFee}</span>
-              {item.hasPlayedGame && 
-                <>
-                  <span>•</span>
-                  <span>Paid</span>
-                </>
-              }
-            </div>
+            {!!item.entryFee ? (
+              <div className="flex items-center gap-1">
+                <FaMoneyBill1Wave className="text-gray-400" />
+                <span>₦{item.entryFee}</span>
+                {item.hasPlayedGame && 
+                  <>
+                    <span>•</span>
+                    <span>Paid</span>
+                  </>
+                }
+              </div>
+            ) : (
+              <p>Free</p>
+            )}
 
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">

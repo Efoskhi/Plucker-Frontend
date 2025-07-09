@@ -1,6 +1,8 @@
 import React, { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../types/user.type";
+import axiosClient from "../utils/axiosClient";
+import Loading from "../components/Loading";
 
 interface AppContextType {
     user: User | null;
@@ -9,7 +11,7 @@ interface AppContextType {
     handleSetUser: (user: User) => void;
     handleLogout: () => void;
     setAccountVerifyEmail: React.Dispatch<React.SetStateAction<string>>;
-    setCurrentGameDetails: React.Dispatch<React.SetStateAction<{} | null>>;
+    setCurrentGameDetails: React.Dispatch<React.SetStateAction<{}>>;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(undefined);
@@ -19,10 +21,10 @@ interface AppContextProviderProps {
 }
 
 const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
-    const [ user, setUser ] = React.useState<User | null>(null);
+    const [ user, setUser ] = React.useState<User>({} as User);
     const [ isLoading, setLoading ] = React.useState(true);
     const [ accountVerifyEmail, setAccountVerifyEmail ] = React.useState('');
-    const [ currentGameDetails, setCurrentGameDetails ] = React.useState<null | {}>(null);
+    const [ currentGameDetails, setCurrentGameDetails ] = React.useState<{}>({});
 
     const navigate = useNavigate();
 
@@ -45,7 +47,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     };
 
     const handleLogout = () => {
-        setUser(null);
+        setUser({} as User);
         removePersistentStorage("user");
         navigate("/");
     }
@@ -60,9 +62,17 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
         setCurrentGameDetails,
     };
 
-    const init = () => {
-        const storedUser = getPersistedStorage("user") as User | null;
+    const init = async () => {
+         try {
+            const { status, data: response } = await axiosClient.get('user');
+            if(status === 200) {
+                handleSetUser(response.data)
+            }
+        } catch(error) {
 
+        }
+
+        // const storedUser = getPersistedStorage("user") as User | null;
 
         // if (!storedUser) {
         //     setLoading(false);
@@ -70,7 +80,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
         //     return;
         // }
 
-        setUser(storedUser);
+        // setUser(storedUser);
         setLoading(false);
     };
 
@@ -80,7 +90,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
 
     return (
         <AppContext.Provider value={contextValue}>
-            {isLoading ? <p>Loading...</p> : children}
+            {isLoading ? <Loading/> : children}
         </AppContext.Provider>
     );
 };

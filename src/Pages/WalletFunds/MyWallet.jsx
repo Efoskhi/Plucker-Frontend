@@ -11,12 +11,16 @@ import Banner from "../../assets/Banner6.png"; // Replace with your actual logo
 import Dollars from "../../assets/dollars.png";
 
 import Splash from "../../assets/Splash.png";
-import WalletHistory from "../../components/MyWallet/WalletHistory";
 import TopUpWallet from "../../components/MyWallet/TopUpWallet";
 import WithdrawFunds from "../../components/MyWallet/WithdrawFunds";
+import { useAppContext } from "../../context/AppContext";
+import { numberFormat } from "../../utils";
+import PaymentHistory from "../../components/MyWallet/PaymentHistory";
 
 const MyWallet = () => {
   const [activeComponent, setActiveComponent] = useState(null); // null | 'topup' | 'withdraw'
+
+  const { user } = useAppContext();
 
   return (
     <div
@@ -60,7 +64,7 @@ const MyWallet = () => {
               Current Wallet Balance:
             </p>
             <p className="text-2xl font-bold flex items-center gap-2">
-              <img src={Dollars} alt="" className="h-8" /> ₦650
+              <img src={Dollars} alt="" className="h-8" /> ₦{numberFormat(user.accountBalance)}
             </p>
 
             <div className="flex gap-3 mt-4">
@@ -85,7 +89,7 @@ const MyWallet = () => {
           {activeComponent === "topup" && <TopUpWallet />}
           {activeComponent === "withdraw" && <WithdrawFunds />}
         </div>
-        <WalletHistory />
+        <PaymentHistory />
       </div>
     </div>
   );

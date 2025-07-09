@@ -4,6 +4,8 @@ import Act1 from "../../assets/Act1.png";
 
 import Act2 from "../../assets/Act2.png";
 import Act3 from "../../assets/Act3.png";
+import { useAppContext } from "../../context/AppContext";
+import { numberFormat } from "../../utils";
 
 export default function Activity() {
   const [stats, setStats] = useState({
@@ -36,6 +38,8 @@ export default function Activity() {
     },
   ]);
 
+  const { user } = useAppContext();
+
   return (
     <div className=" py-6 px-2">
       <div className="max-w-4xl mx-auto">
@@ -54,7 +58,7 @@ export default function Activity() {
               </div>
             </div>
             <div className="text-white text-2xl font-bold">
-              {stats.gamesPlayed}
+              {user.totalGamesPlayed}
             </div>
             <div className="absolute -bottom-4 -right-4 ">
               <div className="text-purple-500 opacity-50">
@@ -71,7 +75,7 @@ export default function Activity() {
                 <span className="text-amber-500">Total Wins</span>
               </div>
             </div>
-            <div className="text-white text-2xl font-bold">{stats.wins}</div>
+            <div className="text-white text-2xl font-bold">{user.totalGamesWon}</div>
             <div className="absolute -bottom-6 -right-6">
               <div className="text-amber-500 opacity-50">
                 <img src={Act2} className="z-50" />
@@ -88,7 +92,7 @@ export default function Activity() {
               </div>
             </div>
             <div className="text-green-500 text-2xl font-bold">
-              ₦{stats.winnings.toLocaleString()}
+              ₦{numberFormat(user.totalWinningAmount)}
             </div>
             <div className="absolute -bottom-10 -right-4">
               <div className="text-green-500 opacity-50">

@@ -9,4 +9,7 @@ export interface User {
     accountBalance: number;
     planID: string;
     hasSetPassword: boolean;
+    totalGamesPlayed: number;
+    totalGamesWon: number;
+    totalWinningAmount: number;
 }
