@@ -71,6 +71,7 @@ const usePlan = () => {
             handleSetUser({
                 ...user!,
                 planID: id,
+                accountBalance: user!.accountBalance - plan.amountPerMonth,
                 username: plan.features?.getVerifiedBadge ? user!.username.replace("plucker_", "") : user!.username,
 
             })
