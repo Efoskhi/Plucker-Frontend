@@ -12,12 +12,14 @@ import Leader from "../../assets/Leader.png";
 
 import Avatar from "../../assets/Avatar.png";
 
-import Dollar from "../../assets/dollars.png";
+import Dollars from "../../assets/dollars.png";
+import Dollar from "../../assets/dollar.png";
 
 import Bell from "../../assets/bell.png";
 import { Link, useNavigate } from "react-router-dom";
 import NotificationModal from "../Notification";
 import { useAppContext } from "../../context/AppContext";
+import { FaMoneyBill1Wave } from "react-icons/fa6";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -56,11 +58,16 @@ const Navbar = () => {
         />
         {!user.planID && 
           <NavItem
-            icon={<img src={Dollar} className="h-8" />}
+            icon={<img src={Dollars} className="h-8" />}
             label="Pricing"
             to="/Pricing"
           />
         }
+         <NavItem
+            icon={<img src={Dollar} className="h-8" />}
+            label="Wallet"
+            to="/MyWallet"
+          />
       </div>
 
       {/* Right Side - Profile */}
@@ -109,6 +116,7 @@ const Navbar = () => {
           />
 
           <NavItem icon={<FaMoneyBill />} label="Pricing" to="/Pricing" />
+          <NavItem icon={<FaMoneyBill1Wave />} label="Wallet" to="/MyWallet" />
         </div>
       )}
     </nav>

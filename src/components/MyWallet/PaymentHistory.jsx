@@ -53,7 +53,7 @@ export default function PaymentHistory() {
           <tbody>
             {isLoading && (
               <tr>
-                <td colSpan={3} className="text-center py-8 text-white">
+                <td colSpan={4} className="text-center py-8 text-white">
                   <Loading /> {/* ← ensure your <Loading /> component fits dark background */}
                 </td>
               </tr>
