@@ -18,7 +18,8 @@ import MoreLikeThis from "../components/MoreLikeThis";
 import AnswerInputModal from "../components/AnswerInputModal";
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
-import CountdownTimer from "../components/CountdownTimer";
+import { numberFormat } from "../utils";
+// import CountdownTimer from "../components/CountdownTimer";
 
 const GameDetails = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,9 +51,13 @@ const GameDetails = () => {
           {/* Header */}
           <div className="flex items-center gap-2 mb-4">
             <div className="bg-black px-3 py-0.5 text-xs rounded flex items-center gap-1">
-              <span>LIVE</span>
-              <span className="text-gray-400">•</span>
-              <span>Tournament</span>
+              <span>{ currentGameDetails.status }</span>
+              {currentGameDetails.isTournament &&
+                <>
+                  <span className="text-gray-400">•</span>
+                  <span>Tournament</span>
+                </>
+              }
             </div>
             {!currentGameDetails.entryFee && (
               <span className="bg-green-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase">
@@ -86,7 +91,7 @@ const GameDetails = () => {
             {!!currentGameDetails.entryFee ? (
               <div className="flex items-center gap-1">
                 <FaMoneyBill1Wave className="text-gray-400" />
-                <span>₦{currentGameDetails.entryFee}</span>
+                <span>₦{numberFormat(currentGameDetails.entryFee, 0)}</span>
                 {currentGameDetails.hasPlayedGame && 
                   <>
                     <span>•</span>
@@ -101,7 +106,7 @@ const GameDetails = () => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 <MdOutlineCreditScore className="text-gray-400" />
-                <span>{currentGameDetails.reward}</span>
+                <span>₦{numberFormat(currentGameDetails.reward, 0)}</span>
               </div>
 
               {/* <div className="flex items-center gap-1">

@@ -1,12 +1,19 @@
 import React from 'react';
 import axiosClient from '../utils/axiosClient';
 import toast from 'react-hot-toast';
+import { Game } from '../types/game.type';
 
 type GameTypes = 'TRENDING' | 'NEW_CHALLANGES' | 'HIGHEST_PAYOUTS' | 'TOURNAMENT';
 
+interface GameEvent {
+    TRENDING: Game[],
+    NEW_CHALLANGES: Game[],
+    HIGHEST_PAYOUTS: Game[],
+}
+
 const useDashboard = () => {
     const [ isLoading, setIsLoading ] = React.useState(false);
-    const [ games, setGames ] = React.useState({
+    const [ games, setGames ] = React.useState<GameEvent>({
         TRENDING: [],
         NEW_CHALLANGES: [],
         HIGHEST_PAYOUTS: [],
@@ -17,7 +24,7 @@ const useDashboard = () => {
         try {
             setIsLoading(true);
 
-            const { status, data: response } = await axiosClient.get(`/game?gameType=${currentTab}`);
+            const { data: response } = await axiosClient.get(`/game?gameType=${currentTab}`);
 
             setGames(prev => ({
                 ...prev,

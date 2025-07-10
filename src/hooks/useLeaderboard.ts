@@ -7,8 +7,8 @@ const useLeaderboard = () => {
     const [ isLoading, setIsLoading ] = React.useState(true);
     const [ leaderboard, setLeaderboard ] = React.useState([]);
     const [ filter, setFilter ] = React.useState({
-        dateFrom: '',
-        dateTo: '',
+        dateFrom: null,
+        dateTo: null,
         pageSize: 10,
     })
 
@@ -16,7 +16,13 @@ const useLeaderboard = () => {
         try {
             setIsLoading(true);
 
-            const { data: response } = await axiosClient.get('/leaderboard');
+            const params = new URLSearchParams();
+
+            if (filter.dateFrom) params.append("dateFrom", filter.dateFrom);
+            if (filter.dateTo) params.append("dateTo", filter.dateTo);
+            if (filter.pageSize) params.append("pageSize", String(filter.pageSize));
+
+            const { data: response } = await axiosClient.get(`/leaderboard?${params.toString()}`);
 
             setLeaderboard(response.data);
 
@@ -33,11 +39,13 @@ const useLeaderboard = () => {
 
     React.useEffect(() => {
         getLeaderboard();
-    }, [])
+    }, [filter])
 
     return {
         isLoading,
         leaderboard,
+        filter,
+        setFilter
     }
 }
 

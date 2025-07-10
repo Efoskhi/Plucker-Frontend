@@ -11,6 +11,7 @@ import { useAppContext } from "../../context/AppContext";
 import Loading from "../../components/Loading";
 import CountdownTimer from "../../components/CountdownTimer";
 import useGamePlay from "../../hooks/useGamePlay";
+import { numberFormat } from "../../utils";
 
 export default function SelectedTournament() {
   const [agree, setAgree] = useState(false);
@@ -96,10 +97,10 @@ export default function SelectedTournament() {
           </h3>
           <div className="space-y-2 text-sm text-center text-[#988c8c]">
             <div className="flex items-center justify-center gap-2 text-center">
-              <FaMoneyBillWave className="text-green-400" /> Entry Fee: ₦{currentGameDetails.entryFee}
+              <FaMoneyBillWave className="text-green-400" /> Entry Fee: ₦{numberFormat(currentGameDetails.entryFee)}
             </div>
             <div className="flex items-center justify-center gap-2">
-              🥇 Prize Pool: ₦{currentGameDetails.reward}
+              🥇 Prize Pool: ₦{numberFormat(currentGameDetails.reward)}
             </div>
             {/* <div className="flex items-center justify-center gap-2">
               <FaClock className="text-purple-400" /> Ends In: <CountdownTimer endingAt={currentGameDetails.endingAt} />
@@ -137,7 +138,7 @@ export default function SelectedTournament() {
 
           {/* Wallet Info */}
           <div className="flex items-center text-sm ">
-            <div>💳 Your Wallet Balance: ₦{user.accountBalance}</div>
+            <div>💳 Your Wallet Balance: ₦{numberFormat(user.accountBalance, 2)}</div>
           </div>
         </div>
         {/* Confirm Button */}
