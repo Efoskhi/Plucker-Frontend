@@ -8,18 +8,23 @@ const useGamePlay = () => {
     const [ answer, setAnswer ] = React.useState('');
     const [ step, setStep ] = React.useState("form"); // form | loading | success
 
-    const { currentGameDetails } = useAppContext();
+    const { currentGameDetails, user, handleSetUser } = useAppContext();
 
     const handlePlayGame = async () => {
         try {
             setStep('loading');
 
-            const { status, data: response } = await axiosClient.post('/game/play', {
-                gameID: currentGameDetails!.id,
+            const { data: response } = await axiosClient.post('/game/play', {
+                gameID: currentGameDetails.id,
                 submittedAnswer: answer,
             });
 
             setStep('success');
+
+            handleSetUser({
+                ...user!,
+                accountBalance: user!.accountBalance - currentGameDetails.entryFee
+            })
 
             return response;
 

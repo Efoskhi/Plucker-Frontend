@@ -8,6 +8,7 @@ import Smile from "../assets/Smile.png";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import CountdownTimer from "./CountdownTimer";
+import { numberFormat } from "../utils";
 
 const TrendingGames = ({ games }) => {
   const navigate = useNavigate();
@@ -15,8 +16,9 @@ const TrendingGames = ({ games }) => {
   const { setCurrentGameDetails } = useAppContext();
 
   const handleGameDetails = (game) => {
-    setCurrentGameDetails(game)
-    navigate("/GameDetails");
+    setCurrentGameDetails(game);
+    window.scrollTo(0, 0);
+    navigate("/GameDetails", { replace: true });
   };
 
   return (
@@ -61,7 +63,7 @@ const TrendingGames = ({ games }) => {
             {!!item.entryFee ? (
               <div className="flex items-center gap-1">
                 <FaMoneyBill1Wave className="text-gray-400" />
-                <span>₦{item.entryFee}</span>
+                <span>₦{numberFormat(item.entryFee, 0)}</span>
                 {item.hasPlayedGame && 
                   <>
                     <span>•</span>
@@ -76,7 +78,7 @@ const TrendingGames = ({ games }) => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 <MdOutlineCreditScore className="text-gray-400" />
-                <span>{item.reward}</span>
+                <span>₦{numberFormat(item.reward, 0)}</span>
               </div>
               {/* {item.isTournament && 
                 <>

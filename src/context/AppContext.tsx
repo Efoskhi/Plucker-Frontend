@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { User } from "../types/user.type";
 import axiosClient from "../utils/axiosClient";
 import Loading from "../components/Loading";
+import { Game } from "../types/game.type";
 
 interface AppContextType {
     user: User | null;
     accountVerifyEmail: string;
-    currentGameDetails: {} | null;
+    currentGameDetails: Game;
     handleSetUser: (user: User) => void;
     handleLogout: () => void;
     setAccountVerifyEmail: React.Dispatch<React.SetStateAction<string>>;
-    setCurrentGameDetails: React.Dispatch<React.SetStateAction<{}>>;
+    setCurrentGameDetails: React.Dispatch<React.SetStateAction<Game>>;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(undefined);
@@ -24,7 +25,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     const [ user, setUser ] = React.useState<User>({} as User);
     const [ isLoading, setLoading ] = React.useState(true);
     const [ accountVerifyEmail, setAccountVerifyEmail ] = React.useState('');
-    const [ currentGameDetails, setCurrentGameDetails ] = React.useState<{}>({});
+    const [ currentGameDetails, setCurrentGameDetails ] = React.useState<Game>({} as Game);
 
     const navigate = useNavigate();
 

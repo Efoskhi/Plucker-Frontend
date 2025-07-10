@@ -18,6 +18,9 @@ import AllGames from "../components/Leaderboard/AllGames";
 import Challenge from "../components/Leaderboard/Challenge";
 import { Link } from "react-router-dom";
 import useLeaderboard from "../hooks/useLeaderboard";
+import { useAppContext } from "../context/AppContext";
+import { numberFormat } from "../utils";
+import Loading from "../components/Loading";
 
 const tabs = [
   { id: "all", label: "All Games", icon: "🌍" },
@@ -79,11 +82,134 @@ const LeaderBoard = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { isLoading, leaderboard } = useLeaderboard();
+  const { isLoading, leaderboard, setFilter } = useLeaderboard();
+  const { user } = useAppContext();
 
   const toggleDropdown = (index) => {
     setOpenDropdown((prev) => (prev === index ? null : index));
   };
+
+  // Get current date
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth(); // 0-11
+  const currentDate = now.getDate();
+
+  // Generate dynamic week options (last 5 weeks)
+  const getWeekOptions = () => {
+    const weeks = [];
+    const oneWeek = 7 * 24 * 60 * 60 * 1000; // milliseconds in a week
+    
+    for (let i = 0; i < 5; i++) {
+      const endDate = new Date(now.getTime() - (i * oneWeek));
+      const startDate = new Date(endDate.getTime() - (6 * 24 * 60 * 60 * 1000));
+      
+      const startMonth = startDate.toLocaleString('default', { month: 'long' });
+      const endMonth = endDate.toLocaleString('default', { month: 'long' });
+      
+      const weekString = startMonth === endMonth 
+        ? `${startMonth} ${startDate.getDate()}–${endDate.getDate()}, ${currentYear}`
+        : `${startMonth} ${startDate.getDate()}–${endMonth} ${endDate.getDate()}, ${currentYear}`;
+      
+      weeks.push({
+        label: weekString,
+        dateFrom: startDate.toISOString().split('T')[0],
+        dateTo: endDate.toISOString().split('T')[0]
+      });
+    }
+    
+    return weeks;
+  };
+
+  // Generate dynamic month options
+  const getMonthOptions = () => {
+    const months = [];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+    // Get current and previous 4 months
+    for (let i = 0; i < 5; i++) {
+      const monthIndex = (currentMonth - i + 12) % 12;
+      const year = currentYear - (currentMonth - i < 0 ? 1 : 0);
+      
+      const firstDay = new Date(year, monthIndex, 1);
+      const lastDay = new Date(year, monthIndex + 1, 0);
+      
+      months.push({
+        label: `${monthNames[monthIndex]} ${year}`,
+        dateFrom: firstDay.toISOString().split('T')[0],
+        dateTo: lastDay.toISOString().split('T')[0]
+      });
+    }
+    
+    return months;
+  };
+
+  // Generate dynamic quarter options
+  const getQuarterOptions = () => {
+    const quarters = [];
+    const currentQuarter = Math.floor(currentMonth / 3) + 1;
+    
+    for (let i = 0; i < 4; i++) {
+      const quarter = (currentQuarter - i + 4) % 4 || 4;
+      const year = currentYear - (currentQuarter - i <= 0 ? 1 : 0);
+      
+      const firstMonth = (quarter - 1) * 3;
+      const lastMonth = firstMonth + 2;
+      
+      const firstDay = new Date(year, firstMonth, 1);
+      const lastDay = new Date(year, lastMonth + 1, 0);
+      
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      
+      quarters.push({
+        label: `Q${quarter} ${year} (${monthNames[firstMonth]}–${monthNames[lastMonth]})`,
+        dateFrom: firstDay.toISOString().split('T')[0],
+        dateTo: lastDay.toISOString().split('T')[0]
+      });
+    }
+    
+    return quarters;
+  };
+
+  const dropdownItems = [
+    {
+      label: "Select Week",
+      emoji: "📅",
+      content: getWeekOptions(),
+    },
+    {
+      label: "Month",
+      emoji: "🗓️",
+      content: getMonthOptions(),
+    },
+    {
+      label: "Season",
+      emoji: "🏆",
+      content: getQuarterOptions(),
+    },
+    {
+      label: "Top Players",
+      emoji: "🔥",
+      content: [
+        { label: "Top 10 Players", pageSize: 10 },
+        { label: "Top 20 Players", pageSize: 20 },
+        { label: "Top 50 Players", pageSize: 50 },
+        { label: "Top 80 Players", pageSize: 80 },
+        { label: "Top 100 Players", pageSize: 100 },
+      ],
+    },
+  ];
+
+  const handleItemClick = (item) => {
+    if (item.pageSize) {
+      setFilter(prev => ({ ...prev, pageSize: item.pageSize }));
+    } else if (item.dateFrom && item.dateTo) {
+      setFilter(prev => ({ ...prev, dateFrom: item.dateFrom, dateTo: item.dateTo }));
+    }
+    setOpenDropdown(null);
+  };
+
 
   const tabComponents = {
     all: <AllGames leaderboard={leaderboard}/>,
@@ -125,7 +251,7 @@ const LeaderBoard = () => {
               <div className="bg-[#111] rounded-xl p-6 max-w-md mx-auto text-center text-white border border-cyan-500/30 shadow-xl space-y-4">
                 {/* Badge */}
                 <div className="inline-block bg-black px-3 py-1 text-xs rounded-full border border-white/10">
-                  Personal Status • <span className="font-bold">Level 2</span>
+                  Personal Status • <span className="font-bold">Level {user.level}</span>
                 </div>
 
                 {/* Clover emoji */}
@@ -133,33 +259,33 @@ const LeaderBoard = () => {
 
                 {/* Welcome */}
                 <h2 className="text-xl font-semibold flex items-center justify-center gap-2">
-                  👋 Hey, <span className="text-cyan-400">@Osato</span>
+                  👋 Hey, <span className="text-cyan-400">@{user.username}</span>
                 </h2>
 
                 {/* Stats */}
                 <div className="space-y-1 text-sm">
                   <p>
-                    💼 <span className="font-medium">Level:</span> 2
+                    💼 <span className="font-medium">Level:</span> {user.level}
                   </p>
-                  <p>
+                  {/* <p>
                     🏆 <span className="font-medium">Current Rank:</span> 14th
+                  </p> */}
+                  <p>
+                    💰 <span className="font-medium">Total Wins:</span> ₦{numberFormat(user.totalWinningAmount)}
                   </p>
                   <p>
-                    💰 <span className="font-medium">Total Wins:</span> ₦9,500
-                  </p>
-                  <p>
-                    🔥 <span className="font-medium">Streak:</span> 2 Wins
+                    🔥 <span className="font-medium">Streak:</span> {numberFormat(user.totalGamesWon, 0)} Wins
                   </p>
                 </div>
 
                 {/* Info */}
-                <div className="text-xs text-gray-400">
+                {/* <div className="text-xs text-gray-400">
                   💡 Want to climb higher?
                   <br />
                   <span className="text-white">
                     Complete 3 games today and earn a “Lucky Plucker 🍥” badge!
                   </span>
-                </div>
+                </div> */}
 
                 {/* Button */}
                 <Link to="/Explore">
@@ -181,10 +307,10 @@ const LeaderBoard = () => {
                   Compete. Climb. Conquer.
                 </span>
               </h1>
-              <p className="text-sm text-gray-400 mt-2">
+              {/* <p className="text-sm text-gray-400 mt-2">
                 Top Pluckers are crowned every Monday at{" "}
                 <span className="text-white">12:00 AM WAT</span>.
-              </p>
+              </p> */}
             </div>
 
             {/* Filters */}
@@ -204,12 +330,13 @@ const LeaderBoard = () => {
                   {openDropdown === index && (
                     <div className="absolute z-10 mt-2 w-56 bg-[#0F0F0F] border border-cyan-500 rounded-md shadow-xl p-3 text-white space-y-2">
                       {item.content.map((entry, i) => (
-                        <div
+                        <button
                           key={i}
-                          className="text-sm border border-white/10 px-3 py-1 rounded-md hover:bg-white/10 transition"
+                          onClick={() => handleItemClick(entry)}
+                          className="w-full text-left text-sm border border-white/10 px-3 py-1 rounded-md hover:bg-white/10 transition"
                         >
-                          {entry}
-                        </div>
+                          {entry.label || entry}
+                        </button>
                       ))}
                     </div>
                   )}
@@ -243,6 +370,7 @@ const LeaderBoard = () => {
 
       {/* Tab Content */}
       <div className="lg:max-w-6xl mx-auto py-6">
+        {isLoading && <Loading/> }
         {tabComponents[activeTab]}
       </div>
     </div>

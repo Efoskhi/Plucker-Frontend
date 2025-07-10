@@ -12,9 +12,11 @@ import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import CountdownTimer from "../CountdownTimer";
 import { useAppContext } from "../../context/AppContext";
+import { numberFormat } from "../../utils";
 
 const Card = ({ tournament }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [ selectedGame, setSelectedGame ] = useState({})
 
   const { setCurrentGameDetails } = useAppContext();
 
@@ -24,6 +26,11 @@ const Card = ({ tournament }) => {
     setCurrentGameDetails(tournament);
     setIsOpen(false);
     navigate('/SelectedTournament');
+  }
+
+  const handleJoinTournament = () => {
+    setSelectedGame(tournament);
+    setIsOpen(true);
   }
 
   return (
@@ -65,7 +72,7 @@ const Card = ({ tournament }) => {
       <div className="flex items-center justify-between text-xs text-[#cccccc] mb-4">
         <div className="flex items-center gap-1">
           <FaMoneyBill1Wave className="text-gray-400" />
-          <span>₦{tournament.entryFee}</span>
+          <span>₦{numberFormat(tournament.entryFee, 0)}</span>
            {tournament.hasPlayedGame && 
               <>
                 <span>•</span>
@@ -77,7 +84,7 @@ const Card = ({ tournament }) => {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1">
             <MdOutlineCreditScore className="text-gray-400" />
-            <span>{tournament.reward}</span>
+            <span>₦{numberFormat(tournament.reward, 0)}</span>
           </div>
 
           {/* <div className="flex items-center gap-1">
@@ -91,7 +98,7 @@ const Card = ({ tournament }) => {
       <div className="inline-flex gap-4">
         <button
           className="bg-[#00DAE4] hover:bg-cyan-700 cursor-pointer  text-black font-medium text-sm py-2 px-4 rounded-md"
-          onClick={() => setIsOpen(true)}
+          onClick={handleJoinTournament}
         >
           Join Tournaent
         </button>
@@ -117,11 +124,10 @@ const Card = ({ tournament }) => {
             {/* Modal Content */}
             <h2 className="text-lg font-bold mb-4">📜 Tournament Rules</h2>
             <h3 className="text-2xl font-semibold mb-2">
-              💡 Game: Rename Lagos — The Vibe Game
+              💡 Game: {selectedGame.title}
             </h3>
             <p className="text-sm my-4 text-[#988c8c]">
-              💕 Objective: Submit the wittiest, most fitting nickname for Lagos
-              today.
+              💕 {selectedGame.description}
             </p>
             <img src={Smile} className="h-4" alt="" />
             <ul className="list-disc list-inside text-sm space-y-1 my-4 text-[#988c8c]">
