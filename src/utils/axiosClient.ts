@@ -31,8 +31,8 @@ axiosClient.interceptors.response.use(
         if (error.response?.status === 401) {
             console.warn("Unauthorized. Redirecting to login...");
             // Optionally redirect or logout
-            if (location.pathname !== '/') {
-                location.href = '/';
+            if (location.pathname !== '/login') {
+                location.href = '/login';
             }
 
             return Promise.reject(new CustomError('Unauthorized'));;
