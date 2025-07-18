@@ -21,7 +21,7 @@ const useProfile = () => {
         password: '',
         confirmPassword: '',
         bankID: user!.bankAccount?.bankID || '',
-        accountNumber: user!.bankAccount.accountNumber || '',
+        accountNumber: user!.bankAccount?.accountNumber || '',
         profilePhoto: user!.profilePhoto || '',
     });
 
