@@ -32,6 +32,7 @@ const usePayment = () => {
     return {
         isLoading,
         payments,
+        paginationData,
         getPayments,
     }
 }

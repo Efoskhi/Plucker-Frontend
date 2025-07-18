@@ -29,7 +29,7 @@ const Terms = () => {
     {
       id: 5,
       emoji: "💸",
-      text: "Prize winnings are subject to verification. Payments are processed within 7 business days.",
+      text: "Prize winnings are subject to verification. Payments are processed within 24 hours.",
     },
     {
       id: 6,
@@ -39,7 +39,7 @@ const Terms = () => {
     {
       id: 7,
       emoji: "✉️",
-      text: "For any questions regarding these Terms, please email: support@pluckgames.com",
+      text: "For any questions regarding these Terms, please email: support@plucked.me ",
     },
   ];
 
@@ -70,12 +70,12 @@ const Terms = () => {
                 <p className="text-gray-300 text-start">{item.text}</p>
               ) : (
                 <p className="text-gray-300 text-start">
-                  {item.text.split("support@pluckgames.com")[0]}
+                  {item.text.split("support@plucked.me ")[0]}
                   <a
-                    href="mailto:support@pluckgames.com"
+                    href="mailto:support@plucked.me "
                     className="text-cyan-400 hover:underline"
                   >
-                    support@pluckgames.com
+                    support@plucked.me
                   </a>
                 </p>
               )}
