@@ -99,7 +99,7 @@ const Support = () => {
           {/* Footer Note */}
           <p className="text-sm mt-6 text-center text-gray-400">
             Prefer email? Write to us directly: <br />
-            <span className="text-white">support@pluckgames.com</span>
+            <span className="text-white">support@plucked.me </span>
           </p>
         </div>
       </div>

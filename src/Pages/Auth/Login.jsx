@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
-import Pad from "../../assets/Pad.png";
 
+import Pad from "../../assets/Pad4.png";
+
+import Box1 from "../../assets/Box1.png";
+
+import Box2 from "../../assets/Box2.png";
+
+import Box3 from "../../assets/Box3.png";
 import Logo from "../../assets/Logo.png";
 
 import Google from "../../assets/Google.png";
@@ -17,10 +23,11 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const { isLoading, inputs, handleInput, handleLogin, handleGoogleLogin } = useAuth();
+  const { isLoading, inputs, handleInput, handleLogin, handleGoogleLogin } =
+    useAuth();
 
   const [searchParams] = useSearchParams();
-  const error = searchParams.get('error');
+  const error = searchParams.get("error");
 
   return (
     <div className="w-full flex h-screen bg-black">
@@ -43,7 +50,7 @@ const Login = () => {
               </h1>
             </div>
 
-            <button 
+            <button
               className="w-full bg-[#1A1A1A] text-white text-xs py-3 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-200 transition"
               onClick={handleGoogleLogin}
             >
@@ -51,12 +58,11 @@ const Login = () => {
               <span>Log in with Google</span>
             </button>
 
-           {error && (
+            {error && (
               <div className="bg-red-100 text-red-700 border border-red-400 px-4 py-3 rounded-md text-sm text-center">
                 {error}
               </div>
             )}
-
 
             <div className="flex items-center justify-center text-[#2C2C2C]">
               <hr className="flex-grow border-[#2C2C2C]" />
@@ -72,7 +78,7 @@ const Login = () => {
                     type="email"
                     placeholder="Your email address"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
-                    onChange={e => handleInput('login.email', e.target.value)}
+                    onChange={(e) => handleInput("login.email", e.target.value)}
                     value={inputs.login.email}
                   />
                   <span className="absolute right-3 top-2.5 text-gray-400">
@@ -88,7 +94,9 @@ const Login = () => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Your password here"
                     className="w-full bg-transparent border border-[#2C2C2C] rounded-md py-2 px-4 text-sm focus:outline-none focus:ring-1 focus:ring-[#00DAE4]"
-                    onChange={e => handleInput('login.password', e.target.value)}
+                    onChange={(e) =>
+                      handleInput("login.password", e.target.value)
+                    }
                     value={inputs.login.password}
                   />
                   <button
@@ -109,11 +117,11 @@ const Login = () => {
                 </div>
               </div>
 
-              <button 
+              <button
                 className="w-full mt-6 bg-[#00DAE4] hover:bg-cyan-700 text-black py-2 rounded-md font-semibold  transition"
                 onClick={handleLogin}
               >
-                {isLoading ? <Loading/> : 'Log in'}
+                {isLoading ? <Loading /> : "Log in"}
               </button>
             </form>
 
@@ -126,8 +134,11 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 lg:flex  hidden">
+      <div className="w-1/2 lg:flex  hidden relative">
         <img src={Pad} className="w-full h-full" />
+        <img src={Box1} className="absolute top-[25%] left-2 h-56" />
+        <img src={Box2} className="absolute top-[25%] right-12" />
+        <img src={Box3} className="absolute top-[60%] right-0" />
       </div>
     </div>
   );
