@@ -1,40 +1,45 @@
-import React from "react";
-import usePayment from "../../hooks/usePayment";
+import useWithdrawal from "../../hooks/useWithdrawal";
 import { formatDate, numberFormat } from "../../utils";
 import Loading from "../Loading";
 
 
 export default function WithdrawalHistory() {
-  const { isLoading, payments } = usePayment();
+  const { isLoading, withdrawals } = useWithdrawal();
 
   return (
     <div className="max-w-4xl mx-auto pt-20  text-white font-sans">
-      <h2 className="text-2xl font-semibold mb-4">Payment History</h2>
+      <h2 className="text-2xl font-semibold mb-4">Withdrawal History</h2>
       <div className="overflow-x-auto border border-teal-500 rounded-lg">
         <table className="min-w-full text-left bg-[#0F0F0F]">
           <thead className="bg-[#2C2C2C] text-white border-b border-teal-500">
             <tr>
               <th className="px-4 py-2">Date</th>
               <th className="px-4 py-2">Amount</th>
+              {/* <th className="px-4 py-2">Channel</th> */}
               <th className="px-4 py-2">Status</th>
             </tr>
           </thead>
           <tbody>
             {isLoading && (
               <tr>
-                <td colSpan={3} className="text-center py-8 text-white">
+                <td colSpan={4} className="text-center py-8 text-white">
                   <Loading /> {/* ← ensure your <Loading /> component fits dark background */}
                 </td>
               </tr>
             )}
 
-            {!isLoading && payments.map((tx, index) => {
+            {!isLoading && withdrawals.map((tx, index) => {
               const statusColor =
                 tx.status === 'success'
                   ? 'text-green-500 bg-green-500'
                   : tx.status === 'failed'
                   ? 'text-red-500 bg-red-500'
                   : 'text-yellow-400 bg-yellow-400';
+
+              const iconColor =
+                tx.status === 'success'
+                  ? 'text-black'
+                  : 'text-white';
 
               const iconPath =
                 tx.status === 'success' ? (
@@ -54,7 +59,8 @@ export default function WithdrawalHistory() {
               return (
                 <tr key={index} className="border-b border-teal-800">
                   <td className="px-4 py-2">{formatDate(tx.createdAt)}</td>
-                  <td className="px-4 py-2 text-green-500">+₦{numberFormat(tx.amount)}</td>
+                  <td className="px-4 py-2 text-red-500">-₦{numberFormat(tx.amount)}</td>
+                  {/* <td className="px-4 py-2">{tx.paymentMethod}</td> */}
                   <td className="px-4 py-2">
                     <span className={`inline-flex items-center space-x-1 text-green-500 ${statusColor.split(' ')[0]}`}>
                       <span className={`w-4 h-4 ${statusColor.split(' ')[1]} rounded-full flex items-center justify-center`}>

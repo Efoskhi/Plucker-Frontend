@@ -12,4 +12,18 @@ export interface User {
     totalGamesPlayed: number;
     totalGamesWon: number;
     totalWinningAmount: number;
+    bankAccount: BankAccount;
+}
+
+export interface BankAccount {
+  id: string;
+  userID: string;
+  accountNumber: string;
+  accountName: string;
+  bankID: string;
+  createdAt: string;
+  updatedAt: string;
+  bank: {
+    bankName: string;
+  };
 }

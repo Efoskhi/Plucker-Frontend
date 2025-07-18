@@ -6,6 +6,7 @@ import UpdateProfileModal from "./UpdateProfileModal";
 import DeleteAccountModal from "./DeleteAccountModal";
 
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import useBank from "../../hooks/useBank";
 
 export default function AccountSettings() {
   const [isModalOpen, setModalOpen] = React.useState(false);
@@ -18,8 +19,11 @@ export default function AccountSettings() {
     handleInput,
     handleUpdateProfile,
     handleDeleteAccount,
+    handleUpdateBankAccount,
+    handleUpdateProfilePhoto,
   } = useProfile();
   const { user } = useAppContext();
+  const { banks } = useBank();
 
   const openProfileModal = (type) => {
     setModalType(type);
@@ -32,18 +36,21 @@ export default function AccountSettings() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      handleInput('profilePhoto', file)
       setImage(URL.createObjectURL(file));
     }
   };
 
   const handleDelete = () => {
     setImage(null);
+    handleInput('profilePhoto', '')
     inputRef.current.value = "";
   };
 
   const triggerInput = () => {
     inputRef.current.click();
   };
+
 
   return (
     <div className="max-w-4xl mx-auto py-6 px-2 lg:px-0">
@@ -69,7 +76,52 @@ export default function AccountSettings() {
         />
 
         <div className="bg-[#1A1A1A] rounded-lg p-6 shadow-lg">
-          <div className="mb-6">
+          <div className="relative w-32 h-32 mx-auto">
+            <div className="w-full h-full rounded-full overflow-hidden border-4 border-gray-200 shadow-md">
+              <img
+                src={image || user.profilePhoto || "/Profile.jpeg"} // fallback image
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Upload Icon */}
+            <button
+              onClick={triggerInput}
+              className="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-lg hover:bg-blue-100"
+            >
+              <FiEdit2 className="text-blue-600 text-lg" />
+            </button>
+
+            {/* Delete Icon */}
+            {image && (
+              <button
+                onClick={handleDelete}
+                className="absolute top-0 right-0 bg-white p-2 rounded-full shadow-lg hover:bg-red-100"
+              >
+                <FiTrash2 className="text-red-600 text-lg" />
+              </button>
+            )}
+
+            {/* Hidden file input */}
+            <input
+              type="file"
+              ref={inputRef}
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+            <button
+              onClick={handleUpdateProfilePhoto}
+              className="bg-[#0F0F0F] hover:bg-gray-700 text-white text-xs py-2 px-4 rounded transition w-full my-2"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? <Loading /> : "Update Photo"}
+            </button>
+          </div>
+
+          <div className="mb-6 mt-6">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-white text-lg">Username</h2>
               <button
@@ -116,41 +168,59 @@ export default function AccountSettings() {
             </p>
           </div>
 
-          <div className="relative w-32 h-32 mx-auto">
-            <div className="w-full h-full rounded-full overflow-hidden border-4 border-gray-200 shadow-md">
-              <img
-                src={image || "/Profile.jpeg"} // fallback image
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+          <div className="my-3">
+            <p className="text-white text-lg mb-4">Bank Details</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+              <div>
+                <p className="text-gray-500 text-sm mb-2">Bank Name</p>
+                <select
+                  value={inputs.bankID}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white"
+                  required
+                  onChange={e => handleInput('bankID', e.target.value)}
+                >
+                  <option value="" selected disabled>Select Bank</option>
+                  {banks.map((item, key) => (
+                    <option value={item.id} key={key}>{item.bankName}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <p className="text-gray-500 text-sm mb-2">
+                  Bank Account Number
+                </p>
+                <input
+                  value={inputs.accountNumber}
+                  type="tel"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white"
+                  placeholder="000 0000 000"
+                  required
+                  onChange={e => handleInput('accountNumber', e.target.value)}
+                />
+              </div>
+              {!!user.bankAccount?.accountName && 
+                <div>
+                  <p className="text-gray-500 text-sm mb-2">
+                    Account Name
+                  </p>
+                  <input
+                    value={user.bankAccount.accountName}
+                    type="text"
+                    disabled
+                    className="w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white"
+                  />
+                </div>
+              }
             </div>
-
-            {/* Upload Icon */}
             <button
-              onClick={triggerInput}
-              className="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-lg hover:bg-blue-100"
+              onClick={handleUpdateBankAccount}
+              className="bg-[#0F0F0F] hover:bg-gray-700 text-white text-xs py-2 px-4 rounded transition"
+              type="submit"
+              disabled={isLoading}
             >
-              <FiEdit2 className="text-blue-600 text-lg" />
+              {isLoading ? <Loading /> : "Update Bank Account"}
             </button>
-
-            {/* Delete Icon */}
-            {image && (
-              <button
-                onClick={handleDelete}
-                className="absolute top-0 right-0 bg-white p-2 rounded-full shadow-lg hover:bg-red-100"
-              >
-                <FiTrash2 className="text-red-600 text-lg" />
-              </button>
-            )}
-
-            {/* Hidden file input */}
-            <input
-              type="file"
-              ref={inputRef}
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageChange}
-            />
           </div>
 
           {/* Password Section */}
@@ -160,31 +230,6 @@ export default function AccountSettings() {
               handleUpdateProfile();
             }}
           >
-            <p className="text-white text-lg mb-4">Bank Details</p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-              <div>
-                <p className="text-gray-500 text-sm mb-2">Bank Name</p>
-                <input
-                  type="text"
-                  className="w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white"
-                  placeholder="Enter Bank Name"
-                  required
-                />
-              </div>
-              <div>
-                <p className="text-gray-500 text-sm mb-2">
-                  Bank Account Number
-                </p>
-                <input
-                  type="number"
-                  className="w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white"
-                  placeholder="000 0000 000"
-                  required
-                />
-              </div>
-            </div>
-
             <div className="mb-6">
               <h2 className="text-white text-lg mb-4">Password</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
