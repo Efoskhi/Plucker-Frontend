@@ -29,6 +29,7 @@ import SelectedTournament from "./Pages/Tournament/SelectedTournament";
 import AppContextProvider from "./context/AppContext";
 import ValidateEmail from "./Pages/Auth/ValidateEmail";
 import PaymentStatus from "./Pages/WalletFunds/PaymentStatus";
+import ProtectedRoute from "./Pages/ProtectedRoute";
 
 function App() {
   return (
@@ -44,53 +45,56 @@ function App() {
             <Route path="/auth/validate/:token" element={<ValidateEmail isVerifyEmail={false}/>} />
             <Route path="/Welcome" element={<Welcome />} />
 
-            <Route element={<Layout />}>
-              <Route path="/" element={<ExploreGames />} />
-              <Route path="/Explore" element={<ExploreGames />} />
 
-              <Route path="/GameDetails" element={<GameDetails />} />
+            <Route element={<ProtectedRoute />}>
+              <Route element={<Layout />}>
+                <Route path="/" element={<ExploreGames />} />
+                <Route path="/Explore" element={<ExploreGames />} />
 
-              <Route path="/LeaderBoard" element={<LeaderBoard />} />
+                <Route path="/GameDetails" element={<GameDetails />} />
 
-              <Route path="/TournamentHub" element={<TournamentHub />} />
+                <Route path="/LeaderBoard" element={<LeaderBoard />} />
 
-              <Route
-                path="/SelectedTournament"
-                element={<SelectedTournament />}
-              />
+                <Route path="/TournamentHub" element={<TournamentHub />} />
 
-              <Route path="/Pricing" element={<Pricing />} />
+                <Route
+                  path="/SelectedTournament"
+                  element={<SelectedTournament />}
+                />
 
-              <Route path="/MyWallet" element={<MyWallet />} />
-              <Route path="/PaymentStatus" element={<PaymentStatus />} />
+                <Route path="/Pricing" element={<Pricing />} />
 
-              <Route path="/UpgradeAccount/:id" element={<UpgrdeAccount />} />
+                <Route path="/MyWallet" element={<MyWallet />} />
+                <Route path="/PaymentStatus" element={<PaymentStatus />} />
 
-              <Route path="/UpgradeSuccessful" element={<UpgradeSuccessful />} />
-              <Route path="/Profile" element={<Profile />} />
+                <Route path="/UpgradeAccount/:id" element={<UpgrdeAccount />} />
 
-              <Route
-                path="/TournamentSubmission"
-                element={<TournamentSubmission />}
-              />
+                <Route path="/UpgradeSuccessful" element={<UpgradeSuccessful />} />
+                <Route path="/Profile" element={<Profile />} />
 
-              <Route
-                path="/SuccessfulSubmission"
-                element={<SuccessfulSubmission />}
-              />
+                <Route
+                  path="/TournamentSubmission"
+                  element={<TournamentSubmission />}
+                />
 
-              <Route path="/Submissions" element={<Submissions />} />
+                <Route
+                  path="/SuccessfulSubmission"
+                  element={<SuccessfulSubmission />}
+                />
 
-              <Route path="/EmptySubmissions" element={<EmptySubmissions />} />
-              <Route path="/FailedSubmission" element={<FailedSubmission />} />
+                <Route path="/Submissions" element={<Submissions />} />
 
-              <Route path="/Terms" element={<Terms />} />
+                <Route path="/EmptySubmissions" element={<EmptySubmissions />} />
+                <Route path="/FailedSubmission" element={<FailedSubmission />} />
 
-              <Route path="/Privacy" element={<Privacy />} />
+                <Route path="/Terms" element={<Terms />} />
 
-              <Route path="/GameRules" element={<GameRules />} />
+                <Route path="/Privacy" element={<Privacy />} />
 
-              <Route path="/Support" element={<Support />} />
+                <Route path="/GameRules" element={<GameRules />} />
+
+                <Route path="/Support" element={<Support />} />
+              </Route>
             </Route>
           </Routes>
         </AppContextProvider>
