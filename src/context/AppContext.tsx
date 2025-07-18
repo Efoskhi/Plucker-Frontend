@@ -72,10 +72,8 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
                 !location.pathname.toLowerCase().includes("auth");
 
             if(shouldRun) {
-                const { status, data: response } = await axiosClient.get('user');
-                if(status === 200) {
-                    handleSetUser(response.data)
-                }
+                const { data: response } = await axiosClient.get('user');
+                handleSetUser(response.data)
             }
            
         } catch(error) {
