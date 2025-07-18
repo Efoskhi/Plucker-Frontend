@@ -36,7 +36,6 @@ function App() {
       <Router>
         <AppContextProvider>
           <Routes>
-            <Route path="/" element={<ExploreGames />} />
             <Route path="/login" element={<Login />} />
 
             <Route path="/Signup" element={<Signup />} />
@@ -46,6 +45,7 @@ function App() {
             <Route path="/Welcome" element={<Welcome />} />
 
             <Route element={<Layout />}>
+              <Route path="/" element={<ExploreGames />} />
               <Route path="/Explore" element={<ExploreGames />} />
 
               <Route path="/GameDetails" element={<GameDetails />} />
