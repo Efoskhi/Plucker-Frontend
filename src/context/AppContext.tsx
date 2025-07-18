@@ -50,7 +50,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     const handleLogout = () => {
         setUser({} as User);
         removePersistentStorage("user");
-        navigate("/");
+        navigate("/login");
     }
 
     const contextValue: AppContextType = {
@@ -68,7 +68,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
             const authToken = localStorage.getItem('authToken');
             const shouldRun =
                 authToken &&
-                location.pathname !== "/" &&
+                location.pathname !== "/login" &&
                 !location.pathname.toLowerCase().includes("auth");
 
             if(shouldRun) {

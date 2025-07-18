@@ -36,7 +36,8 @@ function App() {
       <Router>
         <AppContextProvider>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<ExploreGames />} />
+            <Route path="/login" element={<Login />} />
 
             <Route path="/Signup" element={<Signup />} />
 

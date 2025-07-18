@@ -205,7 +205,7 @@ export default function AccountSettings() {
                     Account Name
                   </p>
                   <input
-                    value={user.bankAccount.accountName}
+                    value={user.bankAccount?.accountName}
                     type="text"
                     disabled
                     className="w-full bg-gray-800 border border-gray-700 rounded-md p-2 text-white"
