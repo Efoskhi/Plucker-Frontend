@@ -16,6 +16,7 @@ import WithdrawFunds from "../../components/MyWallet/WithdrawFunds";
 import { useAppContext } from "../../context/AppContext";
 import { numberFormat } from "../../utils";
 import PaymentHistory from "../../components/MyWallet/PaymentHistory";
+import WithdrawalHistory from "../../components/MyWallet/WithdrawalHistory";
 
 const MyWallet = () => {
   const [activeComponent, setActiveComponent] = useState(null); // null | 'topup' | 'withdraw'
@@ -89,7 +90,8 @@ const MyWallet = () => {
           {activeComponent === "topup" && <TopUpWallet />}
           {activeComponent === "withdraw" && <WithdrawFunds />}
         </div>
-        <PaymentHistory />
+        {activeComponent !== "withdraw" &&<PaymentHistory />}
+        {activeComponent === "withdraw" &&<WithdrawalHistory />}
       </div>
     </div>
   );

@@ -75,7 +75,7 @@ const Navbar = () => {
         <Link className="inline-flex gap-2 items-center" to="/Profile">
           <img src={user?.profilePhoto ?? Avatar} alt="User" className="h-8 w-8 rounded-full" />
           <div className="text-left text-sm">
-            <p className="font-semibold">{ user?.fullname }</p>
+            <p className="font-semibold">{ user?.username }</p>
             <p className="text-xs text-gray-400">LEVEL { user.level }</p>
           </div>
         </Link>

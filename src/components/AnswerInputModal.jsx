@@ -96,13 +96,13 @@ const AnswerInputModal = ({ setIsOpen }) => {
                 <strong>Game:</strong> Rename Lagos based on its current vibe
               </p> */}
               <p>💰 Seed: ₦{currentGameDetails.entryFee} • 🏆 Potential Payout: ₦{currentGameDetails.reward}</p>
-              <p className="pt-4">
+              {/* <p className="pt-4">
                 👥 27 players and counting — you're officially in!
-              </p>
-              <p>
+              </p> */}
+              {/* <p>
                 📅 Winners will be announced:{" "}
                 <span className="text-green-400">April 17th (9PM WAT)</span>
-              </p>
+              </p> */}
               <p className="text-yellow-400 mt-2">
                 ⚠️ Stay tuned — you’ll get a notification if you win.
               </p>

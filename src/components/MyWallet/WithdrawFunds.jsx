@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Smile from "../../assets/Smile.png";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import useWithdrawal from "../../hooks/useWithdrawal";
+import Loading from "../Loading";
 
 export default function WithdrawFunds() {
-  const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState(null);
+
+  const { isLoading, amount, setAmount, handleCreateWithdrawal } = useWithdrawal();
 
   const toggleMethod = (method) => {
     setPaymentMethod((prev) => (prev === method ? null : method));
@@ -49,7 +52,7 @@ export default function WithdrawFunds() {
                   type="radio"
                   name="paymentMethod"
                   value="bank"
-                  checked={paymentMethod === "bank"}
+                  checked={true}
                   onChange={() => setPaymentMethod("bank")}
                   className="form-radio text-teal-500 accent-teal-500"
                 />
@@ -64,84 +67,10 @@ export default function WithdrawFunds() {
               )}
             </div>
 
-            {paymentMethod === "bank" && (
-              <div className="bg-[#2B2B2B] mt-3 p-3 rounded-md space-y-2 text-sm border border-gray-600">
-                <div>
-                  <p className="text-gray-400">Bank Name</p>
-                  <input
-                    className="text-white text-2xl font-semibold border-b bg-transparent outline-none"
-                    placeholder="GT Bank"
-                  />
-                </div>
-                <div>
-                  <p className="text-gray-400">Account Number</p>
-                  <input
-                    className="text-white text-2xl font-semibold border-b bg-transparent outline-none"
-                    placeholder="xxxxxxxx"
-                  />
-                </div>
-                <div>
-                  <p className="text-gray-400">Account Name</p>
-                  <input
-                    className="text-white text-2xl font-semibold border-b bg-transparent outline-none"
-                    placeholder="John Doe"
-                  />
-                </div>
-              </div>
-            )}
+            
           </div>
 
-          {/* Mobile Wallet */}
-          <div>
-            <div
-              className="inline-flex items-center justify-between w-full cursor-pointer"
-              onClick={() => toggleMethod("mobile")}
-            >
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="mobile"
-                  checked={paymentMethod === "mobile"}
-                  onChange={() => setPaymentMethod("mobile")}
-                  className="form-radio text-teal-500 accent-teal-500"
-                />
-                <span className="text-white">
-                  Mobile Wallet (e.g., Paga, Opay)
-                </span>
-              </label>
-              {paymentMethod === "mobile" ? (
-                <MdKeyboardArrowUp size={20} />
-              ) : (
-                <MdKeyboardArrowDown size={20} />
-              )}
-            </div>
-            {paymentMethod === "mobile" && (
-              <div className="bg-[#2B2B2B] mt-3 p-3 rounded-md space-y-2 text-sm border border-gray-600">
-                <div>
-                  <p className="text-gray-400">Bank Name</p>
-                  <input
-                    className="text-white text-2xl font-semibold border-b bg-transparent outline-none"
-                    placeholder="GT Bank"
-                  />
-                </div>
-                <div>
-                  <p className="text-gray-400">Account Number</p>
-                  <input
-                    className="text-white text-2xl font-semibold border-b bg-transparent outline-none"
-                    placeholder="xxxxxxxx"
-                  />
-                </div>
-                <div>
-                  <p className="text-gray-400">Account Name</p>
-                  <input
-                    className="text-white text-2xl font-semibold border-b bg-transparent outline-none"
-                    placeholder="John Doe"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
+         
         </div>
       </div>
       {/* Notice */}
@@ -155,8 +84,11 @@ export default function WithdrawFunds() {
       </div>
       {/* Action Buttons */}
       <div className="flex space-x-4">
-        <button className="flex-1 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded-md">
-          🚀 Submit Withdrawal Request
+        <button 
+          onClick={handleCreateWithdrawal}
+          className="flex-1 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded-md"
+        >
+          {isLoading ? <Loading/> : '🚀 Submit Withdrawal Request'}
         </button>
       </div>
     </div>

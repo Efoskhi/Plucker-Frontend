@@ -26,13 +26,13 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.log("response", error.response.data)
+        console.log("response", error.response?.data)
         // Handle common errors globally (e.g., 401, 403)
         if (error.response?.status === 401) {
             console.warn("Unauthorized. Redirecting to login...");
             // Optionally redirect or logout
-            if (location.pathname !== '/') {
-                location.href = '/';
+            if (location.pathname !== '/login') {
+                location.href = '/login';
             }
 
             return Promise.reject(new CustomError('Unauthorized'));;

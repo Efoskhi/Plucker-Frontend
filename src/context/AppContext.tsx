@@ -50,7 +50,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     const handleLogout = () => {
         setUser({} as User);
         removePersistentStorage("user");
-        navigate("/");
+        navigate("/login");
     }
 
     const contextValue: AppContextType = {
@@ -64,13 +64,16 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     };
 
     const init = async () => {
-         try {
+        try {
             const authToken = localStorage.getItem('authToken');
-            if(authToken) {
-                const { status, data: response } = await axiosClient.get('user');
-                if(status === 200) {
-                    handleSetUser(response.data)
-                }
+            const shouldRun =
+                authToken &&
+                location.pathname !== "/login" &&
+                !location.pathname.toLowerCase().includes("auth");
+
+            if(shouldRun) {
+                const { data: response } = await axiosClient.get('user');
+                handleSetUser(response.data)
             }
            
         } catch(error) {

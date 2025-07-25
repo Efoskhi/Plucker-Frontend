@@ -20,10 +20,14 @@ const useProfile = () => {
         currentPassword: '',
         password: '',
         confirmPassword: '',
+        bankID: user!.bankAccount?.bankID || '',
+        accountNumber: user!.bankAccount?.accountNumber || '',
+        profilePhoto: user!.profilePhoto || '',
     });
+
     const [  isLoading, setIsLoading ] = React.useState(false);
 
-    const handleInput = (field: string, value: any) => {
+    const handleInput = (field: keyof typeof inputs, value: any) => {
         setInputs(prev => ({
             ...prev,
             [field]: value
@@ -34,7 +38,12 @@ const useProfile = () => {
         try {
             setIsLoading(true);
 
-            await axiosClient.put('/user', inputs);
+            await axiosClient.put('/user', {
+                ...inputs,
+                bankID: undefined,
+                accountNumber: undefined,
+                profilePhoto: undefined,
+            });
 
             const username = inputs.username || getSplittedUsername(user!.username) || user!.username;
 
@@ -81,12 +90,76 @@ const useProfile = () => {
         }
     }
 
+    const handleUpdateBankAccount = async () => {
+        try {
+            setIsLoading(true);
+
+            const { data: response } = await axiosClient.post('bank-account', {
+                bankID: inputs.bankID,
+                accountNumber: inputs.accountNumber,
+            });
+
+            setInputs(prev => ({
+                ...prev,
+                profilePhoto: '',
+            }))
+
+            handleSetUser({
+                ...user!,
+                bankAccount: response.data
+            })
+
+            toast.success(response.message);
+
+        } catch(error) {
+            toast.error(error.message)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const handleUpdateProfilePhoto = async () => {
+        try { 
+            setIsLoading(true);
+
+            const profilePhoto = inputs.profilePhoto as any;
+
+            if (!profilePhoto || !(profilePhoto instanceof File)) {
+                return toast.error('Please upload a valid profile photo');
+            }
+
+            const { data: response } = await axiosClient.post('upload/profile-photo', 
+                {
+                    file: profilePhoto,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            );
+
+            handleSetUser({
+                ...user!,
+                profilePhoto: response.data.profilePhoto
+            })
+
+            toast.success(response.message);
+        } catch(error) {
+            toast.error(error.message)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return {
         isLoading,
         inputs,
         handleInput,
         handleUpdateProfile,
         handleDeleteAccount,
+        handleUpdateBankAccount,
+        handleUpdateProfilePhoto,
     }
 }
 
